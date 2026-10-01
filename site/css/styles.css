@@ -158,13 +158,6 @@ html:not(.js) .has-sub:hover .subnav { visibility: visible; opacity: 1; transfor
 .menu .menu__subs a { padding: 11px 0 11px 18px; font: 500 1.3rem/1.2 var(--font-display); color: rgba(236, 230, 218, .9); border-bottom: 0; }
 
 
-/* ---------- Serpentine edge: a long, shallow wave like a crinkle-crankle garden wall ---------- */
-.wall-edge, .craft::before { top: calc(1px - var(--edge-h)); z-index: 1; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='960' height='48' viewBox='0 0 960 48' preserveAspectRatio='none'%3E%3Cpath fill='%232B1F1A' d='M0 20Q240-12 480 20T960 20V49H0Z'/%3E%3C/svg%3E"); }
-  content: ""; position: absolute; left: 0; right: 0; height: var(--edge-h);
-  background-repeat: repeat-x; background-position: left bottom; background-size: auto 100%; pointer-events: none;
-}
-.wall-edge { bottom: -1px; z-index: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='960' height='48' viewBox='0 0 960 48' preserveAspectRatio='none'%3E%3Cpath fill='%23ECE6DA' d='M0 20Q240-12 480 20T960 20V49H0Z'/%3E%3C/svg%3E"); }
-
 /* ---------- Hero ---------- */
 .hero { position: relative; min-height: min(100svh, 940px); display: flex; align-items: flex-end; color: var(--linen); background: var(--deep); isolation: isolate; overflow: hidden; }
 .hero__media { position: absolute; inset: 0; z-index: -2; }
@@ -179,7 +172,8 @@ html:not(.js) .has-sub:hover .subnav { visibility: visible; opacity: 1; transfor
 .hero__shade::after { content: ""; position: absolute; inset: 0; opacity: .09; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
 .hero__content { position: relative; z-index: 1; width: min(var(--wrap), 100% - 2 * var(--gutter)); margin-inline: auto; padding: 150px 0 calc(var(--edge-h) + clamp(32px, 4.5vw, 64px)); }
 .hero h1 { font-size: var(--step-4); line-height: 1.02; max-width: 17ch; }
-.hero__lede { font-size: var(--step-1); line-height: 1.5; max-width: 38ch; margin: clamp(20px, 2.5vw, 30px) 0 clamp(24px, 3vw, 36px); }
+/* The title leaves air under its baseline and the lede has leading above it, so the title-to-lede margin is kept small: the paragraph reads as part of the title, with a clearer break before the buttons */
+.hero__lede { font-size: var(--step-1); line-height: 1.5; max-width: 38ch; margin: clamp(6px, .6vw, 10px) 0 clamp(28px, 3.2vw, 44px); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .hero .btn--ghost { background: rgba(236, 230, 218, .1); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-color: rgba(236, 230, 218, .7); }
 .hero .btn--ghost:hover { background: var(--linen); border-color: var(--linen); }
@@ -267,7 +261,6 @@ html:not(.js) .has-sub:hover .subnav { visibility: visible; opacity: 1; transfor
 
 /* ---------- Craft ---------- */
 .craft { position: relative; isolation: isolate; background: var(--deep); color: var(--linen); padding-block: var(--section); }
-.craft::before { top: calc(1px - var(--edge-h)); z-index: 1; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='48' viewBox='0 0 480 48'%3E%3Cg fill='%232B1F1A'%3E%3Crect x='2' y='14' width='90' height='40' rx='7'/%3E%3Crect x='96' y='5' width='70' height='50' rx='7'/%3E%3Crect x='170' y='18' width='108' height='40' rx='7'/%3E%3Crect x='282' y='8' width='64' height='50' rx='7'/%3E%3Crect x='350' y='16' width='88' height='40' rx='7'/%3E%3Crect x='442' y='10' width='34' height='50' rx='7'/%3E%3Crect x='0' y='38' width='480' height='10'/%3E%3C/g%3E%3C/svg%3E"); }
 .craft__bg { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
 .craft__bg::before { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(43,31,26,.92), rgba(43,31,26,.94)), url("../assets/img/stone-texture.webp") center / cover; }
 .craft__grid { display: grid; grid-template-columns: minmax(180px, 300px) minmax(0, 1fr); gap: clamp(32px, 7vw, 110px); align-items: center; }
@@ -551,10 +544,8 @@ html:not(.js) .has-sub:hover .subnav { visibility: visible; opacity: 1; transfor
   @media (prefers-reduced-motion: no-preference) {
     @keyframes hero-drift { to { transform: translateY(9%); } }
     @keyframes bg-drift { from { transform: translateY(-5%); } to { transform: translateY(5%); } }
-    @keyframes wave-shift { to { background-position: -360px bottom; } }
     .hero__media { animation: hero-drift linear both; animation-timeline: scroll(root block); animation-range: 0 100vh; will-change: transform; }
     .craft__bg::before { inset: -8% 0; animation: bg-drift linear both; animation-timeline: view(block); will-change: transform; }
-    .wall-edge, .craft::before { animation: wave-shift linear both; animation-timeline: view(); }
   }
 }
 

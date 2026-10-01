@@ -8,11 +8,10 @@
   const year = $('#year');
   if (year) year.textContent = new Date().getFullYear();
 
-  /* Header: transparent over the hero, solid once scrolled past it.
-     Pages with a light hero set data-solid so the header is solid from the top. */
+  /* Header: transparent over the hero, solid once scrolled past it */
   const header = $('.site-header');
   const setHeader = () => {
-    const solid = header.hasAttribute('data-solid') || window.scrollY > 40;
+    const solid = window.scrollY > 40;
     header.classList.toggle('is-solid', solid);
     header.classList.toggle('on-dark', !solid);
   };
@@ -305,6 +304,13 @@
       document.documentElement.classList.add('anim-ready');
     }
   }
+
+  /* Photo wall (gallery): each photo fades in once it has loaded, so lazy loading never pops */
+  $$('.wall img').forEach((img) => {
+    const done = () => img.classList.add('is-loaded');
+    if (img.complete && img.naturalWidth) done();
+    else { img.addEventListener('load', done, { once: true }); img.addEventListener('error', done, { once: true }); }
+  });
 
   /* FAQ: smooth open and close */
   $$('.faq details').forEach((d) => {
