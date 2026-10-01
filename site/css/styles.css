@@ -123,6 +123,31 @@ button { font: inherit; color: inherit; }
 .menu-btn { display: none; width: 48px; height: 48px; border-radius: 50%; border: 2px solid currentColor; background: transparent; cursor: pointer; padding: 0; place-content: center; gap: 5px; }
 .menu-btn span { display: block; width: 18px; height: 2px; background: currentColor; border-radius: 2px; }
 
+
+/* ---------- Services dropdown: a linen sheet under the nav, same rules and type as the page ---------- */
+.nav .has-sub { position: relative; display: flex; align-items: center; }
+.nav__toggle { width: 28px; height: 36px; margin-left: 2px; padding: 0; border: 0; background: transparent; color: inherit; display: grid; place-items: center; cursor: pointer; }
+.nav__toggle svg { width: 16px; height: 16px; transition: transform .25s var(--ease); }
+.has-sub.is-open .nav__toggle svg { transform: rotate(180deg); }
+.nav .subnav { position: absolute; top: calc(100% + 20px); left: 50%; translate: -50% 0; z-index: 5; width: min(640px, 100vw - 2 * var(--gutter)); padding: 4px clamp(20px, 2.4vw, 32px) 0; background: var(--linen); color: var(--deep); --focus: var(--bark); border: 1px solid rgba(43, 31, 26, .14); border-top: 2px solid var(--hamstone); visibility: hidden; opacity: 0; transform: translateY(8px); transition: opacity .2s, transform .25s var(--ease), visibility 0s .25s; }
+.nav .subnav::before { content: ""; position: absolute; left: 0; right: 0; top: -22px; height: 22px; }
+.has-sub.is-open .subnav { visibility: visible; opacity: 1; transform: none; transition-delay: 0s; }
+html:not(.js) .has-sub:hover .subnav { visibility: visible; opacity: 1; transform: none; transition-delay: 0s; }
+.nav .subnav ul { display: grid; grid-auto-flow: column; grid-template-rows: repeat(4, auto); gap: 0 clamp(24px, 3vw, 44px); }
+.nav .subnav li a { display: grid; justify-items: start; gap: 2px; padding: 13px 0; background: none; border-top: 1px solid rgba(43, 31, 26, .16); font-weight: 400; }
+.nav .subnav li:nth-child(1) a, .nav .subnav li:nth-child(5) a { border-top: 0; }
+.nav .subnav strong { font: 500 1.1875rem/1.2 var(--font-display); letter-spacing: var(--h-ls); background: linear-gradient(currentColor, currentColor) 0 100% / 0 1.5px no-repeat; padding-bottom: 2px; transition: background-size .25s; }
+.nav .subnav li a:hover strong, .nav .subnav li a:focus-visible strong { background-size: 100% 1.5px; }
+.nav .subnav span { font-size: var(--step--1); line-height: 1.4; color: var(--ink-soft); }
+.nav .subnav__foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 4px; border-top: 1.5px solid rgba(43, 31, 26, .3); }
+.nav .subnav__foot a { background: none; font-size: var(--step--1); padding: 12px 0; }
+.nav .subnav__foot .tile__link { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1.5px; font-weight: 600; margin: 0; }
+.nav .subnav__foot a[href^="tel"] { font-weight: 500; }
+.nav .subnav__foot a:hover { color: var(--bark); }
+@media (prefers-reduced-motion: no-preference) {
+  .has-sub.is-open .subnav { animation: rise .3s var(--ease); --rise: 8px; }
+}
+
 /* ---------- Mobile menu (dialog) ---------- */
 .menu { border: 0; padding: 0; margin: 0; width: 100%; max-width: none; height: 100%; max-height: none; background: var(--deep); color: var(--linen); }
 .menu[open] { display: flex; flex-direction: column; padding: 0 var(--gutter) 28px; }
@@ -133,6 +158,16 @@ button { font: inherit; color: inherit; }
 .menu ul { margin-block: 20px auto; }
 .menu li a { display: block; padding: 12px 0; text-decoration: none; font: 500 clamp(1.9rem, 8vw, 2.6rem)/1.1 var(--font-display); border-bottom: 1px solid rgba(236, 230, 218, .15); }
 .menu__cta { display: grid; gap: 12px; margin-top: 24px; }
+.menu[open] { overflow-y: auto; }
+.menu__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid rgba(236, 230, 218, .15); }
+.menu li .menu__row a { flex: 1; border-bottom: 0; }
+.menu__toggle { flex: none; width: 44px; height: 44px; border-radius: 50%; border: 2px solid rgba(236, 230, 218, .6); background: transparent; color: inherit; display: grid; place-items: center; cursor: pointer; }
+.menu__toggle svg { width: 20px; height: 20px; transition: transform .25s var(--ease); }
+.menu__toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+.menu .menu__subs { margin: 0; padding-bottom: 8px; border-bottom: 1px solid rgba(236, 230, 218, .15); }
+.menu .menu__subs[hidden] { display: none; }
+.menu .menu__subs a { padding: 11px 0 11px 18px; font: 500 1.3rem/1.2 var(--font-display); color: rgba(236, 230, 218, .9); border-bottom: 0; }
+
 
 /* ---------- Serpentine edge: a long, shallow wave like a crinkle-crankle garden wall ---------- */
 .wall-edge, .craft::before { top: calc(1px - var(--edge-h)); z-index: 1; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='960' height='48' viewBox='0 0 960 48' preserveAspectRatio='none'%3E%3Cpath fill='%232B1F1A' d='M0 20Q240-12 480 20T960 20V49H0Z'/%3E%3C/svg%3E"); }
@@ -299,12 +334,11 @@ button { font: inherit; color: inherit; }
 .also__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); background: linear-gradient(rgba(43, 31, 26, .3), rgba(43, 31, 26, .3)) top left / 100% 1.5px no-repeat; }
 .also__list li { border-left: 1.5px solid rgba(43, 31, 26, .3); }
 .also__list li:first-child { border-left: 0; }
-.also__list a { display: grid; gap: 8px; align-content: start; height: 100%; padding: 28px clamp(18px, 3vw, 40px) 8px; text-decoration: none; transition: background-color .25s; }
-.also__list li:first-child a { padding-left: 0; }
-.also__list a:hover { background: var(--bone); }
-.also__list li:first-child a:hover { box-shadow: -40px 0 0 var(--bone); }
+.also__item { display: grid; gap: 8px; align-content: start; justify-items: start; height: 100%; padding: 28px clamp(18px, 3vw, 40px) 20px; }
+.also__list li:first-child .also__item { padding-left: 0; }
 .also__list p { margin: 0; color: var(--ink-soft); font-size: var(--step--1); }
-.also .tile__link { margin-top: 10px; padding-bottom: 20px; }
+.also .tile__link { margin-top: 6px; padding-block: 10px; }
+.also .tile__link:hover { color: var(--bark); text-decoration-thickness: 2.5px; }
 
 /* ---------- Service area: text on the left, map flush to the section edges on the right ---------- */
 .area { background: var(--bone); }
@@ -436,8 +470,7 @@ button { font: inherit; color: inherit; }
   .also__list { grid-template-columns: minmax(0, 1fr); }
   .also__list li { border-left: 0; border-top: 1.5px solid rgba(43, 31, 26, .3); }
   .also__list li:first-child { border-top: 0; }
-  .also__list a, .also__list li:first-child a { padding-inline: 0; }
-  .also__list li:first-child a:hover { box-shadow: none; }
+  .also__item, .also__list li:first-child .also__item { padding-inline: 0; }
   .area__grid { grid-template-columns: minmax(0, 1fr); }
   .area__text { padding: var(--section) var(--gutter); }
   .area__map { min-height: 400px; }

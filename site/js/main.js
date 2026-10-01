@@ -30,6 +30,47 @@
     });
   }
 
+  /* Services dropdown (desktop nav): opens on hover or from the arrow button, closes on Esc, outside click or focus leaving */
+  $$('.has-sub').forEach((item) => {
+    const btn = $('.nav__toggle', item);
+    let timer = 0;
+    const set = (open) => {
+      item.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    };
+    btn.addEventListener('click', () => {
+      // a mouse user who hovered it open and then clicks the arrow keeps it open
+      if (item.dataset.hover) { delete item.dataset.hover; set(true); return; }
+      set(!item.classList.contains('is-open'));
+    });
+    item.addEventListener('pointerenter', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      clearTimeout(timer);
+      if (!item.classList.contains('is-open')) item.dataset.hover = '1';
+      set(true);
+    });
+    item.addEventListener('pointerleave', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      delete item.dataset.hover;
+      timer = setTimeout(() => set(false), 160);
+    });
+    item.addEventListener('focusout', (e) => { if (!item.contains(e.relatedTarget)) set(false); });
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && item.classList.contains('is-open')) { set(false); btn.focus(); }
+    });
+    document.addEventListener('pointerdown', (e) => { if (!item.contains(e.target)) set(false); });
+  });
+
+  /* Mobile menu: Services expands to show every service */
+  $$('.menu__toggle').forEach((btn) => {
+    const list = document.getElementById(btn.getAttribute('aria-controls'));
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', String(open));
+      list.hidden = !open;
+    });
+  });
+
   /* Lightbox */
   const lb = $('#lightbox');
   const gallery = $('[data-gallery]');
