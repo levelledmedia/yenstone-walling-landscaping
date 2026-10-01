@@ -124,29 +124,18 @@ button { font: inherit; color: inherit; }
 .menu-btn span { display: block; width: 18px; height: 2px; background: currentColor; border-radius: 2px; }
 
 
-/* ---------- Services dropdown: a linen sheet under the nav, same rules and type as the page ---------- */
-.nav .has-sub { position: relative; display: flex; align-items: center; }
+/* ---------- Services dropdown: a plain linen list under the nav ---------- */
+.nav > ul > li { display: flex; align-items: center; }
+.nav .has-sub { position: relative; }
 .nav__toggle { width: 28px; height: 36px; margin-left: 2px; padding: 0; border: 0; background: transparent; color: inherit; display: grid; place-items: center; cursor: pointer; }
 .nav__toggle svg { width: 16px; height: 16px; transition: transform .25s var(--ease); }
 .has-sub.is-open .nav__toggle svg { transform: rotate(180deg); }
-.nav .subnav { position: absolute; top: calc(100% + 20px); left: 50%; translate: -50% 0; z-index: 5; width: min(640px, 100vw - 2 * var(--gutter)); padding: 4px clamp(20px, 2.4vw, 32px) 0; background: var(--linen); color: var(--deep); --focus: var(--bark); border: 1px solid rgba(43, 31, 26, .14); border-top: 2px solid var(--hamstone); visibility: hidden; opacity: 0; transform: translateY(8px); transition: opacity .2s, transform .25s var(--ease), visibility 0s .25s; }
+.nav .subnav { position: absolute; top: calc(100% + 20px); left: -20px; z-index: 5; min-width: 260px; padding: 8px 20px; background: var(--linen); color: var(--deep); --focus: var(--bark); border: 1px solid rgba(43, 31, 26, .14); visibility: hidden; opacity: 0; transform: translateY(6px); transition: opacity .2s, transform .2s var(--ease), visibility 0s .2s; }
 .nav .subnav::before { content: ""; position: absolute; left: 0; right: 0; top: -22px; height: 22px; }
 .has-sub.is-open .subnav { visibility: visible; opacity: 1; transform: none; transition-delay: 0s; }
 html:not(.js) .has-sub:hover .subnav { visibility: visible; opacity: 1; transform: none; transition-delay: 0s; }
-.nav .subnav ul { display: grid; grid-auto-flow: column; grid-template-rows: repeat(4, auto); gap: 0 clamp(24px, 3vw, 44px); }
-.nav .subnav li a { display: grid; justify-items: start; gap: 2px; padding: 13px 0; background: none; border-top: 1px solid rgba(43, 31, 26, .16); font-weight: 400; }
-.nav .subnav li:nth-child(1) a, .nav .subnav li:nth-child(5) a { border-top: 0; }
-.nav .subnav strong { font: 500 1.1875rem/1.2 var(--font-display); letter-spacing: var(--h-ls); background: linear-gradient(currentColor, currentColor) 0 100% / 0 1.5px no-repeat; padding-bottom: 2px; transition: background-size .25s; }
-.nav .subnav li a:hover strong, .nav .subnav li a:focus-visible strong { background-size: 100% 1.5px; }
-.nav .subnav span { font-size: var(--step--1); line-height: 1.4; color: var(--ink-soft); }
-.nav .subnav__foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 4px; border-top: 1.5px solid rgba(43, 31, 26, .3); }
-.nav .subnav__foot a { background: none; font-size: var(--step--1); padding: 12px 0; }
-.nav .subnav__foot .tile__link { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1.5px; font-weight: 600; margin: 0; }
-.nav .subnav__foot a[href^="tel"] { font-weight: 500; }
-.nav .subnav__foot a:hover { color: var(--bark); }
-@media (prefers-reduced-motion: no-preference) {
-  .has-sub.is-open .subnav { animation: rise .3s var(--ease); --rise: 8px; }
-}
+.nav .subnav ul { display: block; }
+.nav .subnav a { display: inline-block; padding: 9px 0; white-space: nowrap; background-position: 0 calc(100% - 7px); }
 
 /* ---------- Mobile menu (dialog) ---------- */
 .menu { border: 0; padding: 0; margin: 0; width: 100%; max-width: none; height: 100%; max-height: none; background: var(--deep); color: var(--linen); }
