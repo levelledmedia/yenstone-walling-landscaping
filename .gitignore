@@ -1,0 +1,10 @@
+# Secrets and local config
+.env
+.env.*
+
+# macOS
+.DS_Store
+
+# Vendored agent skills (restorable from skills-lock.json)
+.agents/
+.claude/skills/
