@@ -37,22 +37,22 @@ The six testimonial cards (names, areas, quotes) are invented so the design can 
 
 ## Inner pages: stand-ins to replace
 
-The service pages, About page and Gallery were built after the homepage and reuse what we have.
+The service pages, About page and Our work page were built after the homepage and reuse what we have.
 
 | Page | Slot | Now | What to supply |
 |------|------|-----|----------------|
-| Paving and patios | Hero | `hero-landscaping-driveway.webp`, AI concept | Real photo of a finished drive or patio, landscape, 2400px+ wide |
-| Landscaping | Hero | `hero-landscaping-family-garden.webp`, AI concept | Real photo of a finished landscaped garden, landscape, 2400px+ |
-| Groundworks | Hero | `hero-landscaping-wildlife-garden.webp`, AI concept | Real photo of groundworks (excavation, foundations, a new drive), landscape, 2400px+ |
+| Landscaping, Dry stone walling, Paving and patios, Bespoke ironmongery | Hero | real photos (`hero-landscaping-terraced-patio`, `hero-walling-urn-garden`, `hero-paving-courtyard`, `hero-ironmongery-bridge`), 1672px wide | Fine for now; higher-resolution originals if the client has them |
+| Groundworks | Hero | `excavator-stepped-groundworks.jpg`, real photo but only 960px wide | A wider original (2400px+) |
+| Groundworks | Examples of our work | 2 real photos and 1 placeholder block | More photos of excavation, foundations and drives |
 | Septic tanks | Hero | `stone-bridge-cinematic-overcast.webp`, generic garden stand-in | Real photo of an installation or finished reinstated ground, landscape, 2400px+ |
 | Septic tanks | Examples of our work | three placeholder blocks | Three real photos of installs, landscape ~1400x900 |
-| Bespoke ironmongery | Hero | `stone-bridge-cinematic-evening.webp`, generic stand-in | Real photo of finished ironwork (a ready-made `ironmongery-hero.webp` is in `yenstone ironmongery images/`), landscape, 2400px+ |
-| Bespoke ironmongery | Examples of our work | three placeholder blocks | Three real photos of ironwork, landscape ~1400x900 |
 | Stone cladding | Hero | `stone-texture.webp`, texture stand-in | Real photo of a clad building, landscape, 2400px+ |
 | Stone cladding | Examples of our work | three placeholder blocks | Three real photos of cladding and lime-mortared walling, landscape ~1400x900 |
-| Homepage | Services cards 6 to 8 | no images yet (septic tanks, ironmongery, stone cladding sit in the "We also do" text band) | Optional: photos if the client wants them as cards |
+| Bespoke ironmongery | Examples of our work | 5 real photos (originals 533 to 960px wide) | Larger originals, plus any gates or features not yet photographed |
+| Homepage | Services cards 6 to 8 | no images (septic tanks, ironmongery, stone cladding sit in the "We also do" text band) | Optional: photos if the client wants them as cards |
+| Homepage | Groundworks card | `lawn-gate-cinematic.webp` (lawn, not groundworks) | Swap for a groundworks photo, for example `excavator-stepped-groundworks.jpg` |
 | About us | Hero | `hero-concept-rural-wall.webp`, AI concept | Real photo of a Yenstone wall in the landscape; ideally one of the team at work |
-| Gallery | Photo wall | the 21 homepage project photos (most are 640px wide) | 1600px+ originals, plus project names and locations |
+| Our work | Photo wall | the 21 homepage project photos (most are 640px wide) | 1600px+ originals, plus project names and locations; the newer project photos could be added |
 
 The other service page heroes use the existing "cinematic" images from the homepage.
 Copy for every service except dry stone walling, and the About "Our story", is drafted from

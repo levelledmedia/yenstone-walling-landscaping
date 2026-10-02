@@ -4,7 +4,7 @@ Builds the inner pages of the Yenstone site from the homepage.
 
   services/*.html              the eight service pages (one shared design)
   about.html                   About us
-  gallery.html                 Gallery (photo wall)
+  our-work.html                Our work (photo wall)
   service-versions/version-3.html   the kept "dark stone" layout, for later pages
 
 The header, mobile menu, process, FAQ, quote section, footer and lightbox are
@@ -47,7 +47,7 @@ LIGHTBOX = between('<!-- LIGHTBOX -->', '<script src=')
 
 def header_for(p, current=None, slug=None):
     h = HEADER.replace('<a href="index.html" aria-current="page">Home</a>', '<a href="index.html">Home</a>')
-    marks = {'home': 'index.html', 'about': 'about.html', 'services': 'index.html#services', 'gallery': 'gallery.html'}
+    marks = {'home': 'index.html', 'about': 'about.html', 'services': 'index.html#services', 'work': 'our-work.html'}
     if current in marks and current != 'home':
         href = marks[current]
         h = re.sub(rf'<a href="{re.escape(href)}">', f'<a href="{href}" aria-current="page">', h)
@@ -80,6 +80,36 @@ PHOTOS = {
     'wall-oak-gate-lane': (640, 375, 'A dry stone wall with a new oak gate beside a lane'),
     'stone-detail-iris': (640, 375, 'Close view of cut stonework with iris leaves in front'),
 }
+# Newer photos supplied as originals (jpg/png), named for what they show so each page can pick the right ones
+EXT = {n: 'jpg' for n in ['stone-paved-passage', 'sandstone-patio-dining', 'rustic-stone-terrace', 'stone-flag-doorway', 'paved-courtyard-white-house',
+                          'terraced-stone-steps', 'terraced-patio-walls', 'orchard-garden-wall', 'pond-garden-wall', 'roadside-dry-stone-wall',
+                          'stone-cottage-boundary-wall', 'terraced-dry-stone-walls', 'courtyard-low-stone-wall', 'excavator-retaining-wall',
+                          'excavator-stepped-groundworks', 'dumper-garden-work', 'leaf-motif-garden-gate', 'wrought-iron-railing-welding',
+                          'bridge-railing-clematis', 'brick-footbridge-railings']}
+EXT['spear-top-house-railings'] = 'png'
+PHOTOS.update({
+    'stone-paved-passage': (960, 750, 'Irregular sandstone paving laid as a path beside a stone wall'),
+    'sandstone-patio-dining': (640, 750, 'A sandstone patio with a metal table and chairs against a stone wall'),
+    'rustic-stone-terrace': (640, 750, 'A terrace of random stone flags outside a stone house'),
+    'stone-flag-doorway': (960, 750, 'Grey stone flags and gravel in front of a white front door'),
+    'paved-courtyard-white-house': (640, 750, 'A large paved courtyard with seating beside a white-painted cottage'),
+    'terraced-stone-steps': (640, 750, 'Stone steps and low retaining walls rising through a garden, with terracotta pots'),
+    'terraced-patio-walls': (640, 750, 'A new stone terrace held by low dry stone walls'),
+    'orchard-garden-wall': (640, 750, 'A dry stone wall beside a lawn and planted border, with fields beyond'),
+    'pond-garden-wall': (640, 750, 'A dry stone wall behind a garden border and pond planting'),
+    'roadside-dry-stone-wall': (640, 750, 'A tall coursed dry stone wall beside a road'),
+    'stone-cottage-boundary-wall': (640, 750, 'A stone cottage with a new dry stone boundary wall along the lane'),
+    'terraced-dry-stone-walls': (640, 750, 'A dry stone wall running along a gravel path with fields beyond'),
+    'courtyard-low-stone-wall': (960, 750, 'A low dry stone wall beside a cottage doorway'),
+    'excavator-retaining-wall': (960, 750, 'A mini excavator above a newly built dry stone retaining wall'),
+    'excavator-stepped-groundworks': (960, 750, 'A mini excavator beside newly shuttered and concreted steps in a garden'),
+    'dumper-garden-work': (640, 750, 'A tracked dumper on site in a garden during groundworks'),
+    'leaf-motif-garden-gate': (533, 625, 'A wrought iron garden gate with leaf motifs between stone gate piers'),
+    'wrought-iron-railing-welding': (960, 750, 'New wrought iron railings being welded on site beside a stone building'),
+    'bridge-railing-clematis': (533, 625, 'A wrought iron railing with clematis beside a stone path'),
+    'brick-footbridge-railings': (533, 625, 'A cobbled path between stone walls with curled wrought iron handrails'),
+    'spear-top-house-railings': (960, 750, 'Black iron spear-top railings above a low stone wall in front of a stone house'),
+})
 GALLERY_ORDER = ['coursed-wall', 'stone-detail-iris', 'curved-wall-field', 'oak-gate-paving', 'lawn-curved-wall', 'broad-steps',
                  'flint-wall', 'pond-wall-bench', 'wall-lane', 'tree-relief-pool', 'oak-barn-wall', 'retaining-wall-rose',
                  'formal-garden-steps', 'wall-steps-deer', 'signpost-wall', 'stone-house-glazing', 'gravel-drive-wall',
@@ -99,7 +129,7 @@ SERVICES = [
         desc='Landscaping in South Somerset from Yenstone: hard landscaping, garden features, outdoor improvements and bespoke projects. Call 01963 371123 for a free quote.',
         confirm='garden features and bespoke project examples are inferred from the client\'s one-line description and photos; confirm',
         standfirst='Hard landscaping, garden features, outdoor improvements and bespoke projects, planned and built as one.',
-        hero=('hero-landscaping-family-garden', 1672, 941, 'A curved lawn beside a planted border, stone steps and a paved terrace'),
+        hero=('hero-landscaping-terraced-patio', 1672, 941, 'A stone terrace and patio with low dry stone walls in a garden'),
         facts=[EST, ('One team', 'The people who plan your garden are the people who build it.'), LOCAL],
         a_h='Plan the whole garden, then build it in order',
         a_p1='Some gardens need a tidy-up. Others need a fresh start: new levels, a proper terrace, steps that make sense, borders that frame the view instead of hiding it. We look at how you use the space and how the land falls before we start.',
@@ -114,13 +144,13 @@ SERVICES = [
         ],
         close='Not sure where to start? Call us. We will come and look at the garden, talk through what you want and explain how we would approach it.',
         w_p='Recent work in Somerset and Dorset. Select a photo to see it larger.',
-        photos=['stone-bridge', 'lawn-gate', 'pond-wall-bench', 'oak-gate-paving', 'retaining-wall-curve', 'stone-house-glazing', 'formal-garden-steps', 'lawn-curved-wall'],
+        photos=['stone-bridge', 'lawn-gate', 'pond-wall-bench', 'orchard-garden-wall', 'retaining-wall-curve', 'pond-garden-wall', 'lawn-curved-wall', 'terraced-patio-walls'],
     ),
     dict(
         slug='dry-stone-walling', name='Dry stone walling',
         desc='Dry stone walling in South Somerset from Yenstone: boundary and retaining walls, repairs and restoration, built by a certified waller. Call 01963 371123.',
         standfirst='Traditional dry stone walls, including boundary walls, retaining walls, repairs and restoration, built by hand in local stone by a certified waller.',
-        hero=('curved-wall-field-cinematic', 1639, 960, 'A long curved dry stone wall across a field'),
+        hero=('hero-walling-urn-garden', 1672, 941, 'A dry stone wall with a stone urn on the pier, looking over open fields'),
         facts=[EST, ('DSWA certified', 'Qualified through the Dry Stone Walling Association.'), LOCAL],
         a_h='Built without mortar, made to last',
         a_p1='A dry stone wall holds together by weight and fit alone. Every stone is chosen, turned and set by hand so it locks against the stones around it. The wall drains freely, moves with the ground instead of cracking, and gets better with age.',
@@ -135,7 +165,7 @@ SERVICES = [
         ],
         close='Not sure what your wall needs? Call us. We will come and look, talk through the options and send you a written quote.',
         w_p='Walls we have built in Somerset and Dorset. Select a photo to see it larger.',
-        photos=['tree-relief-pool', 'signpost-wall', 'lawn-curved-wall', 'flint-wall', 'wall-lane', 'coursed-wall', 'wall-steps-deer', 'retaining-wall-rose'],
+        photos=['tree-relief-pool', 'roadside-dry-stone-wall', 'stone-cottage-boundary-wall', 'excavator-retaining-wall', 'curved-wall-field', 'terraced-dry-stone-walls', 'coursed-wall', 'signpost-wall'],
     ),
     dict(
         slug='steps-and-terraces', name='Steps and terraces',
@@ -156,13 +186,13 @@ SERVICES = [
         ],
         close='Got a slope that needs sorting? Call us. We will come and look, talk through the options and send you a written quote.',
         w_p='Recent work in Somerset and Dorset. Select a photo to see it larger.',
-        photos=['formal-garden-steps', 'coursed-wall', 'broad-steps', 'oak-gate-paving', 'wall-steps-deer', 'lawn-gate', 'retaining-wall-curve', 'retaining-wall-rose'],
+        photos=['terraced-stone-steps', 'formal-garden-steps', 'broad-steps', 'wall-steps-deer', 'retaining-wall-rose', 'terraced-patio-walls'],
     ),
     dict(
         slug='paving', name='Paving and patios',
         desc='Paving and patios in South Somerset from Yenstone: patios, paths and paved areas in durable stone finishes for gardens and outdoor spaces. Call 01963 371123.',
         standfirst='Patios, paths and paved areas using durable stone finishes for gardens and outdoor spaces.',
-        hero=('hero-landscaping-driveway', 1672, 941, 'A gravel drive and a stone-flagged path leading to a stone cottage porch and a five-bar gate'),
+        hero=('hero-paving-courtyard', 1672, 941, 'A large sandstone paved courtyard with seating beside a white-painted cottage'),
         facts=[EST, ('Firm foundations', 'Laid on properly prepared ground, so surfaces stay level.'), LOCAL],
         a_h='Surfaces that last start below the surface',
         a_p1='Most paving problems start under the stone, not in it. A patio or drive that sinks, rocks or holds water has usually been laid on ground that was not prepared properly. We dig out, build up the base and set the levels so water runs where it should before any stone goes down.',
@@ -177,14 +207,14 @@ SERVICES = [
         ],
         close='Thinking about a patio or drive? Call us. We will visit, measure up and send you a written quote.',
         w_p='Recent work in Somerset and Dorset. Select a photo to see it larger.',
-        photos=['oak-barn-wall', 'oak-gate-paving', 'gravel-drive-wall', 'flint-wall', 'wall-oak-gate-lane', 'stone-house-glazing', 'broad-steps', 'formal-garden-steps'],
+        photos=['sandstone-patio-dining', 'rustic-stone-terrace', 'stone-flag-doorway', 'paved-courtyard-white-house', 'stone-paved-passage', 'oak-gate-paving', 'gravel-drive-wall', 'stone-house-glazing'],
     ),
     dict(
         slug='groundworks', name='Groundworks',
         desc='Groundworks in South Somerset from Yenstone: site preparation, excavation, foundations and associated groundwork for landscaping and construction projects. Call 01963 371123.',
         confirm='scope of groundworks (excavation, foundations, drives, drainage) is inferred; confirm with the client',
         standfirst='Site preparation, excavation, foundations and associated groundwork for landscaping and construction projects.',
-        hero=('hero-landscaping-wildlife-garden', 1774, 887, 'A wildlife pond with a gravel path, stone steps and a bench in a planted garden'),
+        hero=('excavator-stepped-groundworks', 960, 750, 'A mini excavator beside newly shuttered and concreted steps in a garden'),
         facts=[EST, ('Ready for what comes next', 'Ground prepared and finished so the next stage can start.'), QUOTES],
         a_h='The work you do not see afterwards',
         a_p1='Good groundworks are what everything else rests on: the levels, the drainage and the foundations. If they are right, walls, paving and gardens stay where they should. If they are not, nothing built on top will last.',
@@ -198,8 +228,9 @@ SERVICES = [
             ('Drainage', 'Getting water away from where you do not want it.'),
         ],
         close='Need the ground sorting first? Call us. We will come and look and send you a written quote.',
-        w_p='Recent work in Somerset and Dorset. Select a photo to see it larger.',
-        photos=['oak-barn-wall', 'stone-house-glazing', 'gravel-drive-wall', 'coursed-wall', 'retaining-wall-curve', 'flint-wall', 'retaining-wall-rose', 'broad-steps'],
+        w_p='Groundworks in progress. Select a photo to see it larger.',
+        photos=['dumper-garden-work', 'excavator-retaining-wall'],
+        shots=['More groundworks photos, landscape 1400x900'],
     ),
     dict(
         slug='septic-tanks', name='Septic tanks',
@@ -227,9 +258,9 @@ SERVICES = [
     dict(
         slug='ironmongery', name='Bespoke ironmongery',
         desc='Bespoke ironmongery in South Somerset from Yenstone: custom-made ironwork and metal features for gardens, gates, landscaping and stonework. Call 01963 371123.',
-        confirm='scope of ironmongery is inferred from the client\'s one-line description; confirm what they make. SWAP: hero is a stand-in, use a real ironwork photo (see yenstone ironmongery images/ and SHOT-LIST.md)',
+        confirm='scope of ironmongery is inferred from the client\'s one-line description; confirm what they make.',
         standfirst='Custom-made ironwork and metal features designed to complement gardens, gates, landscaping and stonework.',
-        hero=('stone-bridge-cinematic-evening', 1536, 1024, 'A low stone bridge over a stream in a planted garden at dusk'),
+        hero=('hero-ironmongery-bridge', 1672, 941, 'A cobbled path between stone walls with curled wrought iron handrails'),
         facts=[EST, ('Made to measure', 'Ironwork designed for the place it is going, not taken off a shelf.'), QUOTES],
         a_h='Ironwork made for the place it is going',
         a_p1='The right metalwork finishes a garden: a gate that closes properly, a feature that picks up the style of the house, details that match the stone around them. Because it is custom-made, it can be designed around your garden rather than adapted to fit it.',
@@ -243,9 +274,8 @@ SERVICES = [
             ('Made to match', 'Ironwork designed alongside new landscaping and stonework, or to complement a garden that already exists.'),
         ],
         close='Have a piece in mind? Call us. We will talk through what you want and send you a written quote.',
-        w_p='Photos of our ironwork are coming soon.',
-        photos=None,
-        shots=['Bespoke ironwork gate, landscape 1400x900', 'Metalwork detail, landscape 1400x900', 'Ironwork with stonework, landscape 1400x900'],
+        w_p='Ironwork we have made and fitted. Select a photo to see it larger.',
+        photos=['spear-top-house-railings', 'leaf-motif-garden-gate', 'wrought-iron-railing-welding', 'bridge-railing-clematis', 'brick-footbridge-railings'],
     ),
     dict(
         slug='stone-cladding', name='Stone cladding',
@@ -284,7 +314,8 @@ def btns(kind, size='btn--lg'):
 
 def img_tag(name, w, h, alt, p, cls='', lazy=True, extra=''):
     loading = ' loading="lazy"' if lazy else ''
-    return f'<img{cls} src="{p}assets/img/{name}.webp" width="{w}" height="{h}" alt="{alt}"{loading}{extra}>'
+    ext = EXT.get(name, 'webp')
+    return f'<img{cls} src="{p}assets/img/{name}.{ext}" width="{w}" height="{h}" alt="{alt}"{loading}{extra}>'
 
 
 def photo_buttons(names, p, anim=True):
@@ -358,8 +389,14 @@ def service_page(s):
     p = '../'
     confirm = f'    <!-- CONFIRM with client: {s["confirm"]} -->\n' if s.get('confirm') else '    <!-- CONFIRM with client: copy is drafted from the facts on the homepage; check before launch -->\n'
     facts = '\n        '.join(f'<li><strong>{a}</strong><span>{b}</span></li>' for a, b in s['facts'])
-    if s['photos']:
-        gallery = f'<div class="svc-mosaic" data-gallery data-stagger>\n          {photo_buttons(s["photos"], p)}\n        </div>'
+    if s['photos'] and s.get('shots'):
+        # a few real photos plus placeholder blocks for the rest, in a row of three
+        tiles = '\n          '.join(f'<div class="ph" data-shot="{t}"><span>{t.split(",")[0]}</span></div>' for t in s['shots'])
+        gallery = f'<!-- SWAP: add more real photos of this work (SHOT-LIST.md) -->\n        <div class="svc-mosaic svc-mosaic--ph" data-gallery>\n          {photo_buttons(s["photos"], p, anim=False)}\n          {tiles}\n        </div>'
+    elif s['photos']:
+        mod = ' svc-mosaic--5' if len(s['photos']) == 5 else ''
+        assert len(s['photos']) in (5, 6, 8), s['slug']   # the mosaic grid is laid out for 5, 6 or 8 photos
+        gallery = f'<div class="svc-mosaic{mod}" data-gallery data-stagger>\n          {photo_buttons(s["photos"], p)}\n        </div>'
     else:
         tiles = '\n          '.join(f'<div class="ph" data-shot="{t}"><span>{t.split(",")[0]}</span></div>' for t in s['shots'])
         gallery = f'<!-- SWAP: real photos of this work (SHOT-LIST.md) -->\n        <div class="svc-mosaic svc-mosaic--ph">\n          {tiles}\n        </div>'
@@ -433,7 +470,7 @@ def about_page():
     <!-- OUR STORY -->
     <section class="split" id="story" aria-labelledby="story-title">
       <figure class="split__img" data-anim="fade">
-        {img_tag('tree-relief-pool', 960, 750, 'A dry stone wall with a tree carved in relief behind a swimming pool', p)}
+        {img_tag('stone-bridge-cinematic-morning', 1536, 1024, 'A curved stone bridge over a stream in a planted garden, Somerset', p)}
       </figure>
       <div class="split__text">
         <div class="split__inner">
@@ -468,8 +505,8 @@ def about_page():
                  'about', main, 'about')
 
 
-# ------------------------------------------------------------------ gallery page
-def gallery_page():
+# ------------------------------------------------------------------ our work page
+def work_page():
     p = ''
     items = []
     for i, n in enumerate(GALLERY_ORDER):
@@ -484,7 +521,7 @@ def gallery_page():
       <div class="wrap">
         <div class="v3-hero__grid">
           <div class="v3-hero__text">
-            <h1 id="hero-title" data-reveal>Gallery</h1>
+            <h1 id="hero-title" data-reveal>Our work</h1>
             <p class="v3-hero__lede" data-reveal>Gardens, steps, paving and walls we have built across Somerset and Dorset. Select a photo to see it larger.</p>
             <div class="svc-btns" data-reveal>
               {btns('dark')}
@@ -504,9 +541,9 @@ def gallery_page():
       </div>
     </section>
 '''
-    return shell(p, 'Gallery | Yenstone Walling &amp; Landscaping',
+    return shell(p, 'Our work | Yenstone Walling &amp; Landscaping',
                  'Photographs of landscaping, steps, paving and dry stone walls built by Yenstone across Somerset and Dorset.',
-                 'gallery-page', main, 'gallery')
+                 'gallery-page', main, 'work')
 
 
 # ------------------------------------------------------------------ kept layout: version 3 (dry stone walling copy)
@@ -585,5 +622,5 @@ for s in SERVICES:
     (SITE / 'services' / f'{s["slug"]}.html').write_text(service_page(s))
     print('wrote services/' + s['slug'] + '.html')
 (SITE / 'about.html').write_text(about_page()); print('wrote about.html')
-(SITE / 'gallery.html').write_text(gallery_page()); print('wrote gallery.html')
+(SITE / 'our-work.html').write_text(work_page()); print('wrote our-work.html')
 (SITE / 'service-versions' / 'version-3.html').write_text(version3_page()); print('wrote service-versions/version-3.html')

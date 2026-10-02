@@ -197,7 +197,6 @@ html:not(.js) .has-sub:hover .subnav { visibility: visible; opacity: 1; transfor
 .ph {
   position: relative; overflow: hidden; display: grid; align-content: end;
   background-color: var(--bone);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='72'%3E%3Cg fill='none' stroke='%235B4035' stroke-opacity='.16' stroke-width='1.5'%3E%3Crect x='1' y='1' width='62' height='22' rx='4'/%3E%3Crect x='67' y='1' width='92' height='22' rx='4'/%3E%3Crect x='1' y='27' width='98' height='22' rx='4'/%3E%3Crect x='103' y='27' width='56' height='22' rx='4'/%3E%3Crect x='1' y='53' width='48' height='18' rx='4'/%3E%3Crect x='53' y='53' width='106' height='18' rx='4'/%3E%3C/g%3E%3C/svg%3E");
   color: var(--ink-soft);
 }
 .ph > span { padding: 18px; font-size: var(--step--1); line-height: 1.35; max-width: 28ch; }
@@ -268,6 +267,7 @@ html:not(.js) .has-sub:hover .subnav { visibility: visible; opacity: 1; transfor
 .craft__logo { width: 100%; height: auto; }
 .craft__text p { color: rgba(236, 230, 218, .88); max-width: 56ch; }
 .craft h2 { margin-bottom: .6em; max-width: 16ch; }
+.craft__more { margin-top: clamp(28px, 4vw, 40px); }
 .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: clamp(28px, 4vw, 44px); }
 .facts li { padding: 4px clamp(14px, 2vw, 26px); border-left: 1px solid rgba(236, 230, 218, .25); display: grid; gap: 6px; align-content: start; }
 .facts li:first-child { border-left: 0; padding-left: 0; }
@@ -557,3 +557,18 @@ html:not(.js) .has-sub:hover .subnav { visibility: visible; opacity: 1; transfor
   .js .hero [data-reveal] { opacity: 1; transform: none; }
   [data-anim] { opacity: 1 !important; clip-path: none !important; }
 }
+
+/* ---------- Process: photo under the heading ---------- */
+.process__img { margin: clamp(24px, 3vw, 36px) 0 0; aspect-ratio: 4 / 3; overflow: hidden; }
+.process__img img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- FAQ: heading anchored by a line of text, every question in its own box ---------- */
+.fq__head { position: sticky; top: 110px; display: grid; gap: 18px; }
+.fq__head h2 { position: static; }
+.fq__head p { margin: 0; max-width: 34ch; color: var(--ink-soft); }
+.faq--boxes { display: grid; gap: 12px; }
+.faq--boxes details, .faq--boxes details:last-child { border: 0; background: var(--bone); padding-inline: clamp(20px, 2.5vw, 32px); transition: box-shadow .25s; }
+.faq--boxes details[open] { box-shadow: inset 0 0 0 1.5px rgba(43, 31, 26, .35); }
+.faq--boxes summary { padding-right: 40px; }
+.faq--boxes summary::after { right: 2px; }
+.faq--boxes details p { padding-right: 40px; }
