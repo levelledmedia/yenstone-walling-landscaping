@@ -2,7 +2,7 @@
 """
 Builds the inner pages of the Yenstone site from the homepage.
 
-  services/*.html              the seven service pages (one shared design)
+  services/*.html              the eight service pages (one shared design)
   about.html                   About us
   gallery.html                 Gallery (photo wall)
   service-versions/version-3.html   the kept "dark stone" layout, for later pages
@@ -87,35 +87,81 @@ GALLERY_ORDER = ['coursed-wall', 'stone-detail-iris', 'curved-wall-field', 'oak-
 # (order chosen so the justified rows pack evenly: three photos per row at common desktop widths)
 
 # ------------------------------------------------------------------ service copy
-EST = ('Established in 1991', 'One family, one yard, and a lot of walls.')
+EST = ('Established in 1991', 'Over thirty years of landscaping and building in stone across Somerset and Dorset.')
 LOCAL = ('Local stone first', 'We match the stone of your house and your lane wherever we can.')
+QUOTES = ('Written quotes', 'The work and the price set out clearly before we start.')
 
+# Order here is the order of the homepage cards and the Services dropdown:
+# landscaping leads, dry stone walling second, then the rest.
 SERVICES = [
     dict(
+        slug='landscaping', name='Landscaping',
+        desc='Landscaping in South Somerset from Yenstone: hard landscaping, garden features, outdoor improvements and bespoke projects. Call 01963 371123 for a free quote.',
+        confirm='garden features and bespoke project examples are inferred from the client\'s one-line description and photos; confirm',
+        standfirst='Hard landscaping, garden features, outdoor improvements and bespoke projects, planned and built as one.',
+        hero=('hero-landscaping-family-garden', 1672, 941, 'A curved lawn beside a planted border, stone steps and a paved terrace'),
+        facts=[EST, ('One team', 'The people who plan your garden are the people who build it.'), LOCAL],
+        a_h='Plan the whole garden, then build it in order',
+        a_p1='Some gardens need a tidy-up. Others need a fresh start: new levels, a proper terrace, steps that make sense, borders that frame the view instead of hiding it. We look at how you use the space and how the land falls before we start.',
+        a_p2='We plan the paving, steps, walls and planting together, so it feels like one garden rather than a set of separate jobs. Then we agree the order of work, so each stage leads naturally into the next.',
+        b_h='What we landscape',
+        b_intro='A landscaping job can be as simple as a new path or as full as a whole-garden scheme. It always starts with a visit.',
+        items=[
+            ('Hard landscaping', 'Terraces, paths, steps, walls and surfaces that give the garden its structure, built in stone that suits the house.'),
+            ('Garden features', 'Seating areas, raised beds, water features and focal points that give a garden character and somewhere to look.'),
+            ('Outdoor improvements', 'Lawns, borders and awkward levels put right, so the space you have works better for the way you use it.'),
+            ('Bespoke projects', 'Something particular in mind? We work from your ideas and the site to design and build something made for your garden.'),
+        ],
+        close='Not sure where to start? Call us. We will come and look at the garden, talk through what you want and explain how we would approach it.',
+        w_p='Recent work in Somerset and Dorset. Select a photo to see it larger.',
+        photos=['stone-bridge', 'lawn-gate', 'pond-wall-bench', 'oak-gate-paving', 'retaining-wall-curve', 'stone-house-glazing', 'formal-garden-steps', 'lawn-curved-wall'],
+    ),
+    dict(
         slug='dry-stone-walling', name='Dry stone walling',
-        desc='Dry stone walling in South Somerset from Yenstone: boundary, retaining and garden walls, repairs and rebuilds, built by a certified waller. Call 01963 371123.',
-        standfirst='Boundary, retaining and garden walls, built by hand in local stone by a certified waller.',
+        desc='Dry stone walling in South Somerset from Yenstone: boundary and retaining walls, repairs and restoration, built by a certified waller. Call 01963 371123.',
+        standfirst='Traditional dry stone walls, including boundary walls, retaining walls, repairs and restoration, built by hand in local stone by a certified waller.',
         hero=('curved-wall-field-cinematic', 1639, 960, 'A long curved dry stone wall across a field'),
         facts=[EST, ('DSWA certified', 'Qualified through the Dry Stone Walling Association.'), LOCAL],
         a_h='Built without mortar, made to last',
         a_p1='A dry stone wall holds together by weight and fit alone. Every stone is chosen, turned and set by hand so it locks against the stones around it. The wall drains freely, moves with the ground instead of cracking, and gets better with age.',
-        a_p2='It is slow, skilled work, and it is the heart of what we do. We have been building walls across Somerset and Dorset since 1991, and everything else we build, from steps to terraces, is shaped by that way of working.',
+        a_p2='It is slow, skilled work, and it is where Yenstone began. We have been building walls across Somerset and Dorset since 1991, and the same care goes into everything else we build.',
         b_h='What we build and repair',
         b_intro='Whether it is a new wall or an old one that has come down, we start by looking at the stone you already have and the ground it stands on.',
         items=[
             ('Boundary and garden walls', 'Along a lane, around a field or enclosing a garden. We match the stone of your house and your lane, so a new wall looks as if it has always been there.'),
             ('Retaining walls', 'Walls that hold back sloping ground and give you level space to use. Built to drain freely, so water does not build up behind them.'),
-            ('Repairs and rebuilds', 'We take down and rebuild walls that have leaned or collapsed, including lime-mortared walls, and reuse the original stone wherever we can. We also do insurance work and can give you a quote to pass to your insurer.'),
-            ('Cladding and built-in details', 'Stone cladding for buildings, plus gateways, piers and steps set into the wall as it goes up.'),
+            ('Repairs and restoration', 'We take down and rebuild walls that have leaned or collapsed, including lime-mortared walls, and reuse the original stone wherever we can. We also do insurance work and can give you a quote to pass to your insurer.'),
+            ('Gateways, piers and built-in steps', 'Gateways, piers and steps set into the wall as it goes up, so they are part of the wall rather than added to it.'),
         ],
         close='Not sure what your wall needs? Call us. We will come and look, talk through the options and send you a written quote.',
         w_p='Walls we have built in Somerset and Dorset. Select a photo to see it larger.',
         photos=['tree-relief-pool', 'signpost-wall', 'lawn-curved-wall', 'flint-wall', 'wall-lane', 'coursed-wall', 'wall-steps-deer', 'retaining-wall-rose'],
     ),
     dict(
-        slug='paving', name='Paving, patios and drives',
-        desc='Paving, patios and drives in South Somerset from Yenstone: stone and gravel surfaces laid on firm foundations. Call 01963 371123 for a free quote.',
-        standfirst='Stone and gravel surfaces for terraces, paths and drives, laid on firm foundations.',
+        slug='steps-and-terraces', name='Steps and terraces',
+        desc='Steps and terraces in South Somerset from Yenstone: bespoke stone steps, terracing and raised landscape features designed to suit the surrounding garden. Call 01963 371123.',
+        standfirst='Bespoke stone steps, terracing and raised landscape features designed to suit the surrounding garden.',
+        hero=('formal-garden-steps-cinematic', 1638, 960, 'Broad stone steps rising between clipped lawns and low stone walls'),
+        facts=[EST, ('Built into the land', 'Steps and terraces shaped around the way your ground falls.'), LOCAL],
+        a_h='Make a slope useful',
+        a_p1='A sloping garden can be hard to use. Steps and terraces turn the fall of the land into usable levels, with comfortable, safe ways to move between them.',
+        a_p2='We build them in stone, with retaining walls where the ground needs holding back, so the steps, terraces and walls are one piece of work and weather together.',
+        b_h='What we build',
+        b_intro='Every set of steps starts with the slope in front of it. We measure, work out the levels and build to suit.',
+        items=[
+            ('Garden steps', 'Stone steps with even risers and treads that are comfortable to use in all weathers.'),
+            ('Terraces and raised features', 'Flat, usable areas and raised landscape features, cut into a slope or built up from it and held by stone walls.'),
+            ('Retaining walls', 'Dry stone walls that hold back the ground and drain freely.'),
+            ('Steps built into walls', 'Stone steps set into a wall as it goes up, for gateways and changes of level.'),
+        ],
+        close='Got a slope that needs sorting? Call us. We will come and look, talk through the options and send you a written quote.',
+        w_p='Recent work in Somerset and Dorset. Select a photo to see it larger.',
+        photos=['formal-garden-steps', 'coursed-wall', 'broad-steps', 'oak-gate-paving', 'wall-steps-deer', 'lawn-gate', 'retaining-wall-curve', 'retaining-wall-rose'],
+    ),
+    dict(
+        slug='paving', name='Paving and patios',
+        desc='Paving and patios in South Somerset from Yenstone: patios, paths and paved areas in durable stone finishes for gardens and outdoor spaces. Call 01963 371123.',
+        standfirst='Patios, paths and paved areas using durable stone finishes for gardens and outdoor spaces.',
         hero=('hero-landscaping-driveway', 1672, 941, 'A gravel drive and a stone-flagged path leading to a stone cottage porch and a five-bar gate'),
         facts=[EST, ('Firm foundations', 'Laid on properly prepared ground, so surfaces stay level.'), LOCAL],
         a_h='Surfaces that last start below the surface',
@@ -134,82 +180,19 @@ SERVICES = [
         photos=['oak-barn-wall', 'oak-gate-paving', 'gravel-drive-wall', 'flint-wall', 'wall-oak-gate-lane', 'stone-house-glazing', 'broad-steps', 'formal-garden-steps'],
     ),
     dict(
-        slug='garden-design', name='Garden design and planning',
-        desc='Garden design and planning in South Somerset from Yenstone: a clear plan for levels, paths, walls and planting before any ground is broken. Call 01963 371123.',
-        standfirst='A clear plan for levels, paths, walls and planting before any ground is broken.',
-        hero=('pond-wall-bench-cinematic', 1639, 960, 'A garden pond with a dry stone wall and bench behind it'),
-        facts=[EST, ('One team', 'The people who plan your garden are the people who build it.'), LOCAL],
-        a_h='Plan the whole garden, then build it in order',
-        a_p1='Some gardens need a tidy-up. Others need a fresh start: new levels, a proper terrace, steps that make sense, borders that frame the view instead of hiding it. We look at how you use the space and how the land falls before we draw anything.',
-        a_p2='We plan the walls, paving and planting together, so it feels like one garden rather than a set of separate jobs. Then we agree the order of work, so each stage leads naturally into the next.',
-        b_h='What a plan covers',
-        b_intro='A plan can be as simple as a sketch for one border or as full as a whole-garden scheme. It always starts with a visit.',
-        items=[
-            ('Levels and layout', 'How the garden falls, where it needs to be level, and how you move through it.'),
-            ('Walls and boundaries', 'Stone walls that hold the ground, mark the edges and give the planting something to grow against.'),
-            ('Paving and surfaces', 'Terraces, paths and drives chosen to suit the house and laid to match the plan.'),
-            ('Planting and borders', 'Beds and borders that frame the view, planned alongside the hard landscaping so they sit together.'),
-        ],
-        close='Not sure where to start? Call us. We will come and look at the garden, talk through what you want and explain how we would approach it.',
-        w_p='Recent work in Somerset and Dorset. Select a photo to see it larger.',
-        photos=['stone-bridge', 'lawn-gate', 'pond-wall-bench', 'oak-gate-paving', 'retaining-wall-curve', 'stone-house-glazing', 'formal-garden-steps', 'lawn-curved-wall'],
-    ),
-    dict(
-        slug='steps-and-terraces', name='Steps and terraces',
-        desc='Steps and terraces in South Somerset from Yenstone: level changes in stone that look as if they were always there. Call 01963 371123 for a free quote.',
-        standfirst='Level changes that look as if they were always there.',
-        hero=('formal-garden-steps-cinematic', 1638, 960, 'Broad stone steps rising between clipped lawns and low stone walls'),
-        facts=[EST, ('Built into the land', 'Steps and terraces shaped around the way your ground falls.'), LOCAL],
-        a_h='Make a slope useful',
-        a_p1='A sloping garden can be hard to use. Steps and terraces turn the fall of the land into usable levels, with comfortable, safe ways to move between them.',
-        a_p2='We build them in stone, with retaining walls where the ground needs holding back, so the steps, terraces and walls are one piece of work and weather together.',
-        b_h='What we build',
-        b_intro='Every set of steps starts with the slope in front of it. We measure, work out the levels and build to suit.',
-        items=[
-            ('Garden steps', 'Stone steps with even risers and treads that are comfortable to use in all weathers.'),
-            ('Terraces and level changes', 'Flat, usable areas cut into a slope and held by stone walls.'),
-            ('Retaining walls', 'Dry stone walls that hold back the ground and drain freely.'),
-            ('Steps built into walls', 'Stone steps set into a wall as it goes up, for gateways and changes of level.'),
-        ],
-        close='Got a slope that needs sorting? Call us. We will come and look, talk through the options and send you a written quote.',
-        w_p='Recent work in Somerset and Dorset. Select a photo to see it larger.',
-        photos=['formal-garden-steps', 'coursed-wall', 'broad-steps', 'oak-gate-paving', 'wall-steps-deer', 'lawn-gate', 'retaining-wall-curve', 'retaining-wall-rose'],
-    ),
-    dict(
-        slug='lawns', name='Lawns and turfing',
-        desc='Lawns and turfing in South Somerset from Yenstone: ground prepared properly, then seeded or turfed. Call 01963 371123 for a free quote.',
-        standfirst='Ground prepared properly, then seeded or turfed.',
-        hero=('hero-landscaping-family-garden', 1672, 941, 'A curved lawn beside a planted border, stone steps and a paved terrace'),
-        facts=[EST, ('Prepared properly', 'Cleared, levelled and firmed before any seed or turf goes down.'), ('Family run', 'Run by one family from Perhams Farm, Yenston.')],
-        a_h='A good lawn is made before it is laid',
-        a_p1='Whether it is seed or turf, a lawn is only as good as the ground under it. We clear the site, level it, deal with drainage where it is needed and prepare a fine, firm seedbed before anything goes down.',
-        a_p2='We can start from bare ground or from a tired old lawn, and we plan the edges, paths and borders around it so the lawn sits properly in the garden.',
-        b_h='Seeded or turfed',
-        b_intro='Both give you a good lawn. The right choice depends on how soon you want to use it, the size of the space and your budget.',
-        items=[
-            ('Turfing', 'Quality turf laid on prepared ground, for a lawn you can start to enjoy quickly.'),
-            ('Seeding', 'Sown on a fine seedbed, a good option for larger areas and a more gradual start.'),
-            ('Levelling and drainage', 'Uneven or boggy ground put right before the lawn goes down.'),
-            ('Edges and borders', 'Clean edges, paths and planting beds that frame the lawn and keep it neat.'),
-        ],
-        close='Ready for a new lawn? Call us. We will come and look at the ground and send you a written quote.',
-        w_p='Recent work in Somerset and Dorset. Select a photo to see it larger.',
-        photos=['stone-bridge', 'lawn-gate', 'lawn-curved-wall', 'stone-house-glazing', 'formal-garden-steps', 'oak-gate-paving', 'pond-wall-bench', 'retaining-wall-curve'],
-    ),
-    dict(
         slug='groundworks', name='Groundworks',
-        desc='Groundworks in South Somerset from Yenstone: excavation, levelling, foundations and drives, ready for what comes next. Call 01963 371123 for a free quote.',
+        desc='Groundworks in South Somerset from Yenstone: site preparation, excavation, foundations and associated groundwork for landscaping and construction projects. Call 01963 371123.',
         confirm='scope of groundworks (excavation, foundations, drives, drainage) is inferred; confirm with the client',
-        standfirst='Excavation, levelling, foundations and drives, ready for what comes next.',
+        standfirst='Site preparation, excavation, foundations and associated groundwork for landscaping and construction projects.',
         hero=('hero-landscaping-wildlife-garden', 1774, 887, 'A wildlife pond with a gravel path, stone steps and a bench in a planted garden'),
-        facts=[EST, ('Ready for what comes next', 'Ground prepared and finished so the next stage can start.'), ('Written quotes', 'The work and the price set out clearly before we start.')],
+        facts=[EST, ('Ready for what comes next', 'Ground prepared and finished so the next stage can start.'), QUOTES],
         a_h='The work you do not see afterwards',
         a_p1='Good groundworks are what everything else rests on: the levels, the drainage and the foundations. If they are right, walls, paving and gardens stay where they should. If they are not, nothing built on top will last.',
-        a_p2='We dig, level and prepare the ground ourselves, so it is ready for what comes next, whether that is a wall, a terrace, a drive or a whole garden.',
+        a_p2='We dig, level and prepare the ground ourselves, so it is ready for what comes next, whether that is a terrace, a drive, a wall or a whole garden.',
         b_h='What we do',
         b_intro='From a small garden to a whole plot, we start by looking at the ground and what it needs to carry.',
         items=[
-            ('Excavation and levelling', 'Digging out and levelling ground for terraces, paths, drives and building work.'),
+            ('Site preparation and excavation', 'Clearing, digging out and levelling ground for terraces, paths, drives and building work.'),
             ('Foundations', 'Firm, correctly built bases for walls, steps and paved areas.'),
             ('Drives and hardstanding', 'Prepared and surfaced for vehicles, with drainage that keeps them dry.'),
             ('Drainage', 'Getting water away from where you do not want it.'),
@@ -219,12 +202,12 @@ SERVICES = [
         photos=['oak-barn-wall', 'stone-house-glazing', 'gravel-drive-wall', 'coursed-wall', 'retaining-wall-curve', 'flint-wall', 'retaining-wall-rose', 'broad-steps'],
     ),
     dict(
-        slug='septic-tanks', name='Septic tanks and drainage',
-        desc='Septic tanks and drainage in South Somerset from Yenstone: installation and drainage for properties off mains sewers. Call 01963 371123 for a free quote.',
+        slug='septic-tanks', name='Septic tanks',
+        desc='Septic tanks in South Somerset from Yenstone: installation, including the excavation, groundworks and drainage the system needs. Call 01963 371123 for a free quote.',
         confirm='scope of septic tank and drainage work, and any regulations to mention; confirm with the client. Real photos needed (see SHOT-LIST.md)',
-        standfirst='Installation and drainage for properties off mains sewers.',
+        standfirst='Septic tank installation, including associated excavation, groundworks and drainage requirements.',
         hero=('stone-bridge-cinematic-overcast', 1639, 959, 'A low stone bridge over a stream in a planted garden'),
-        facts=[EST, ('Local knowledge', 'Working across Somerset and Dorset from our base near Templecombe.'), ('Written quotes', 'The work and the price set out clearly before we start.')],
+        facts=[EST, ('Local knowledge', 'Working across Somerset and Dorset from our base near Templecombe.'), QUOTES],
         a_h='Drainage for homes off the mains',
         a_p1='Many homes in our area are not connected to a mains sewer. A septic tank and its drainage need to be planned for the ground, the size of the household and the rules that apply.',
         a_p2='We install the tank and the drainage and put the ground back properly afterwards, so the work disappears into the garden.',
@@ -233,13 +216,59 @@ SERVICES = [
         items=[
             ('New installations', 'A tank and drainage fitted for a new build or a property that does not yet have a system.'),
             ('Replacing an old system', 'Taking out a failing or out-of-date tank and fitting a new one.'),
-            ('Drainage and soakaways', 'The pipework and drainage that carry water away safely.'),
-            ('Reinstating the ground', 'Levelling, turf and paths put back so the garden is usable again.'),
+            ('Excavation and groundworks', 'The digging, bedding and backfilling the tank needs, done as part of the installation.'),
+            ('Drainage and soakaways', 'The pipework and drainage that carry water away safely, and the ground put back afterwards.'),
         ],
         close='Not sure what your property needs? Call us. We will come and look and send you a written quote.',
-        w_p='Photos of our septic tank and drainage installations are coming soon.',
+        w_p='Photos of our septic tank installations are coming soon.',
         photos=None,
         shots=['Septic tank installation, landscape 1400x900', 'Drainage and soakaway work, landscape 1400x900', 'Finished ground reinstated, landscape 1400x900'],
+    ),
+    dict(
+        slug='ironmongery', name='Bespoke ironmongery',
+        desc='Bespoke ironmongery in South Somerset from Yenstone: custom-made ironwork and metal features for gardens, gates, landscaping and stonework. Call 01963 371123.',
+        confirm='scope of ironmongery is inferred from the client\'s one-line description; confirm what they make. SWAP: hero is a stand-in, use a real ironwork photo (see yenstone ironmongery images/ and SHOT-LIST.md)',
+        standfirst='Custom-made ironwork and metal features designed to complement gardens, gates, landscaping and stonework.',
+        hero=('stone-bridge-cinematic-evening', 1536, 1024, 'A low stone bridge over a stream in a planted garden at dusk'),
+        facts=[EST, ('Made to measure', 'Ironwork designed for the place it is going, not taken off a shelf.'), QUOTES],
+        a_h='Ironwork made for the place it is going',
+        a_p1='The right metalwork finishes a garden: a gate that closes properly, a feature that picks up the style of the house, details that match the stone around them. Because it is custom-made, it can be designed around your garden rather than adapted to fit it.',
+        a_p2='We build the landscaping and stonework as well, so the ironwork, the walls and the surfaces can be planned together and fit as one piece.',
+        b_h='What we make',
+        b_intro='Every piece starts with a conversation about where it is going and how it will be used.',
+        items=[
+            ('Gates and gate furniture', 'Custom-made gates, hinges and latches designed to suit the opening, the wall or hedge around it and the style of the property.'),
+            ('Garden metalwork', 'Features and supports for the garden that suit the planting and the stonework around them.'),
+            ('Fittings and details', 'Brackets, fixings and other small pieces made to match the rest of the job.'),
+            ('Made to match', 'Ironwork designed alongside new landscaping and stonework, or to complement a garden that already exists.'),
+        ],
+        close='Have a piece in mind? Call us. We will talk through what you want and send you a written quote.',
+        w_p='Photos of our ironwork are coming soon.',
+        photos=None,
+        shots=['Bespoke ironwork gate, landscape 1400x900', 'Metalwork detail, landscape 1400x900', 'Ironwork with stonework, landscape 1400x900'],
+    ),
+    dict(
+        slug='stone-cladding', name='Stone cladding',
+        desc='Stone cladding in South Somerset from Yenstone: traditional and contemporary stone cladding, including lime and mortared walling. Call 01963 371123 for a free quote.',
+        confirm='scope of cladding is inferred from the client\'s one-line description; confirm. SWAP: hero is a stand-in texture, use a real cladding photo (SHOT-LIST.md)',
+        standfirst='Traditional and contemporary stone cladding, including lime and mortared walling.',
+        hero=('stone-texture', 1920, 1080, 'Close view of natural stonework'),
+        facts=[EST, ('Traditional and contemporary', 'Stone finishes to suit an old farmhouse or a new build.'), LOCAL],
+        a_h='Stone that suits the building',
+        a_p1='Stone cladding changes how a building sits in its setting. Whether the look is traditional or contemporary, the result depends on choosing the right stone and fixing it properly.',
+        a_p2='We also build in lime and mortared walling, and we match the stone of your house and your lane wherever we can, so the new work belongs with the old.',
+        b_h='What we do',
+        b_intro='Every building is different. We start with a visit to look at the structure, the stone around it and the finish you want.',
+        items=[
+            ('Traditional stone cladding', 'Natural stone laid to suit older buildings and the character of the area.'),
+            ('Contemporary cladding', 'Cleaner, more modern stone finishes for new builds, extensions and feature walls.'),
+            ('Lime and mortared walling', 'Walls built and pointed in lime or mortar, where the job calls for it.'),
+            ('Matching existing stonework', 'Stone chosen to sit beside what is already there, so new work and old read as one.'),
+        ],
+        close='Thinking about cladding? Call us. We will come and look and send you a written quote.',
+        w_p='Photos of our stone cladding are coming soon.',
+        photos=None,
+        shots=['Traditional stone cladding, landscape 1400x900', 'Contemporary stone cladding, landscape 1400x900', 'Lime-mortared walling, landscape 1400x900'],
     ),
 ]
 SLUG_ORDER = [s['slug'] for s in SERVICES]
@@ -389,17 +418,17 @@ def service_page(s):
 def about_page():
     p = ''
     why = items_html([
-        ('A family firm', 'You deal with the same family from the first phone call to the final handover.'),
+        ('Hands-on, start to finish', 'You deal with the people who plan and build the work, from the first phone call to the final handover.'),
         ('A certified waller', 'Our walling is done by a waller qualified through the Dry Stone Walling Association.'),
         ('Local stone first', 'We match the stone of your house and your lane wherever we can, so new work sits naturally beside the old.'),
         ('Clear quotes, tidy sites', 'A written quote that sets out the work and the price, an agreed start date, and a site left tidy at the end of each day.'),
     ])
     hero = photo_hero(p, ('hero-concept-rural-wall', 1672, 941, 'A long dry stone wall running across a field towards a gate, with rolling Somerset countryside beyond'),
                       'About Yenstone Walling and Landscaping',
-                      'A family firm from Yenston, near Templecombe, building walls, steps and gardens in stone since 1991.')
+                      'Landscapers and dry stone wallers from Yenston, near Templecombe, building gardens, steps and walls in stone since 1991.')
     process = rel(PROCESS, p)
     faq = rel(FAQ, p)
-    main = f'''    <!-- CONFIRM with client: the story is drafted from the facts on the homepage. Replace with the family's own account (who started it, how it grew). -->
+    main = f'''    <!-- CONFIRM with client: the story is drafted from the facts on the homepage. Replace with the firm's own account (who started it, how it grew). -->
 {hero}
     <!-- OUR STORY -->
     <section class="split" id="story" aria-labelledby="story-title">
@@ -410,8 +439,8 @@ def about_page():
         <div class="split__inner">
           <h2 id="story-title" data-anim="settle">Our story</h2>
           <p class="split__lead">Yenstone has been building in stone since 1991, and we are still doing it the same way: by hand, one stone at a time.</p>
-          <p>We are a family firm, working from Perhams Farm at Yenston, near Templecombe. Dry stone walling is where we started and it is still the heart of what we do. It is slow, skilled work that rewards doing it properly.</p>
-          <p>Everything else we build, from steps and terraces to paving and whole gardens, is shaped by that way of working. We plan the walls, the surfaces and the planting together, in local stone, so the finished garden feels settled from the first season.</p>
+          <p>We work from Perhams Farm at Yenston, near Templecombe. Dry stone walling is where we started, and the same patience and care go into all of the landscaping we do today. It is slow, skilled work that rewards doing it properly.</p>
+          <p>Everything else we build, from steps and terraces to paving and whole gardens, is shaped by that way of working. We plan the surfaces, the walls and the planting together, in local stone, so the finished garden feels settled from the first season.</p>
           <div class="split__actions">
             {btns('split', '')}
           </div>
@@ -435,7 +464,7 @@ def about_page():
 {process}
 {faq}'''
     return shell(p, 'About us | Yenstone Walling &amp; Landscaping, Yenston, Templecombe',
-                 'About Yenstone Walling and Landscaping, a family firm from Yenston near Templecombe building walls, steps and gardens in stone since 1991.',
+                 'About Yenstone Walling and Landscaping, landscapers and dry stone wallers from Yenston near Templecombe, building gardens, steps and walls in stone since 1991.',
                  'about', main, 'about')
 
 
@@ -456,7 +485,7 @@ def gallery_page():
         <div class="v3-hero__grid">
           <div class="v3-hero__text">
             <h1 id="hero-title" data-reveal>Gallery</h1>
-            <p class="v3-hero__lede" data-reveal>Walls, steps, paving and gardens we have built across Somerset and Dorset. Select a photo to see it larger.</p>
+            <p class="v3-hero__lede" data-reveal>Gardens, steps, paving and walls we have built across Somerset and Dorset. Select a photo to see it larger.</p>
             <div class="svc-btns" data-reveal>
               {btns('dark')}
             </div>
@@ -476,14 +505,14 @@ def gallery_page():
     </section>
 '''
     return shell(p, 'Gallery | Yenstone Walling &amp; Landscaping',
-                 'Photographs of dry stone walls, steps, paving and gardens built by Yenstone across Somerset and Dorset.',
+                 'Photographs of landscaping, steps, paving and dry stone walls built by Yenstone across Somerset and Dorset.',
                  'gallery-page', main, 'gallery')
 
 
 # ------------------------------------------------------------------ kept layout: version 3 (dry stone walling copy)
 def version3_page():
     p = '../'
-    s = SERVICES[0]
+    s = next(x for x in SERVICES if x['slug'] == 'dry-stone-walling')
     facts = '\n          '.join(f'<li data-anim="settle"><strong>{a}</strong><span>{b}</span></li>' for a, b in s['facts'])
     main = f'''    <!-- HERO -->
     <section class="v3-hero svc-hero on-dark" aria-labelledby="hero-title">
