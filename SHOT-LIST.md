@@ -43,11 +43,12 @@ The service pages, About page and Our work page were built after the homepage an
 |------|------|-----|----------------|
 | Landscaping, Dry stone walling, Paving and patios, Bespoke ironmongery | Hero | real photos (`hero-landscaping-terraced-patio`, `hero-walling-urn-garden`, `hero-paving-courtyard`, `hero-ironmongery-bridge`), 1672px wide | Fine for now; higher-resolution originals if the client has them |
 | Groundworks | Hero | `excavator-stepped-groundworks.jpg`, real photo but only 960px wide | A wider original (2400px+) |
-| Groundworks | Examples of our work | 2 real photos and 1 placeholder block | More photos of excavation, foundations and drives |
+| Groundworks | Examples of our work | 2 real photos and 4 "Photo coming soon" blocks | More photos of excavation, foundations and drives |
 | Septic tanks | Hero | `stone-bridge-cinematic-overcast.webp`, generic garden stand-in | Real photo of an installation or finished reinstated ground, landscape, 2400px+ |
-| Septic tanks | Examples of our work | three placeholder blocks | Three real photos of installs, landscape ~1400x900 |
+| Septic tanks | Examples of our work | six "Photo coming soon" blocks | Six real photos of installs (any mix of landscape and portrait) |
 | Stone cladding | Hero | `stone-texture.webp`, texture stand-in | Real photo of a clad building, landscape, 2400px+ |
-| Stone cladding | Examples of our work | three placeholder blocks | Three real photos of cladding and lime-mortared walling, landscape ~1400x900 |
+| Stone cladding | Examples of our work | six "Photo coming soon" blocks | Six real photos of cladding and lime-mortared walling |
+| Contact | Hero | `stone-bridge-cinematic-evening.webp`, generic stand-in | Real photo of the Yenston base or a finished garden, landscape, 2400px+ |
 | Bespoke ironmongery | Examples of our work | 5 real photos (originals 533 to 960px wide) | Larger originals, plus any gates or features not yet photographed |
 | Homepage | Services cards 6 to 8 | no images (septic tanks, ironmongery, stone cladding sit in the "We also do" text band) | Optional: photos if the client wants them as cards |
 | Homepage | Groundworks card | `lawn-gate-cinematic.webp` (lawn, not groundworks) | Swap for a groundworks photo, for example `excavator-stepped-groundworks.jpg` |

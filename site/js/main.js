@@ -70,29 +70,36 @@
     });
   });
 
-  /* Lightbox */
+  /* Lightbox. The photo list is read each time, so photos added later ("Show more" on Our work) open too.
+     Looping sliders hold cloned buttons; those forward to their original and are never counted. */
   const lb = $('#lightbox');
   const gallery = $('[data-gallery]');
+  let refreshGallery = () => {};
   if (lb && gallery) {
     const lbImg = $('img', lb);
-    const lbCap = $('figcaption', lb);
-    const buttons = $$('button', gallery);
+    const photos = () => $$('button', gallery).filter((b) => !('clone' in b.dataset));
     let index = 0;
 
     const show = (i) => {
+      const buttons = photos();
       index = (i + buttons.length) % buttons.length;
       const img = $('img', buttons[index]);
       lbImg.src = img.currentSrc || img.src;
       lbImg.alt = img.alt;
-      lbCap.textContent = `${img.alt} (${index + 1} of ${buttons.length})`;
       lbImg.classList.remove('is-swapping');
       void lbImg.offsetWidth; // restart the fade
       lbImg.classList.add('is-swapping');
     };
 
-    buttons.forEach((btn, i) => {
-      btn.setAttribute('aria-label', `View larger: ${$('img', btn).alt}`);
-      btn.addEventListener('click', () => { show(i); lb.showModal(); });
+    refreshGallery = () => photos().forEach((btn) => {
+      if (!btn.hasAttribute('aria-label')) btn.setAttribute('aria-label', `View larger: ${$('img', btn).alt}`);
+    });
+    refreshGallery();
+    gallery.addEventListener('click', (e) => {
+      const btn = e.target.closest('button');
+      if (!btn || !gallery.contains(btn) || 'clone' in btn.dataset) return;
+      show(photos().indexOf(btn));
+      lb.showModal();
     });
     $('.lightbox__prev', lb).addEventListener('click', () => show(index - 1));
     $('.lightbox__next', lb).addEventListener('click', () => show(index + 1));
@@ -249,9 +256,37 @@
       track.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hovered = true; });
       track.addEventListener('pointerleave', () => { hovered = false; last = 0; });
       [prev, next].forEach((b) => b && b.addEventListener('click', stop));
-      setTimeout(() => requestAnimationFrame(frame), 1200);
+      setTimeout(() => requestAnimationFrame(frame), 1800); // after the strip has settled in
     }
   });
+
+  /* Testimonials: a review too long for its card is cut to an excerpt (CSS line clamp) and gets a
+     "Read full review" link that opens the whole text in a dialog. Works for any review length. */
+  const reviewModal = $('#review-modal');
+  const reviewTrack = $('.reviews');
+  if (reviewModal && reviewTrack) {
+    const fitReviews = () => $$('.review', reviewTrack).forEach((card) => {
+      const quote = $('blockquote', card);
+      const more = $('.review__more', card);
+      if (quote && more) more.hidden = !(quote.scrollHeight > quote.clientHeight + 1);
+    });
+    fitReviews();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitReviews);
+    let fitTimer = 0;
+    window.addEventListener('resize', () => { clearTimeout(fitTimer); fitTimer = setTimeout(fitReviews, 150); });
+
+    reviewTrack.addEventListener('click', (e) => {
+      const more = e.target.closest('.review__more');
+      if (!more) return;
+      const card = more.closest('.review');
+      $('.review-modal__name', reviewModal).textContent = $('.review__name', card).textContent;
+      $('.review-modal__text', reviewModal).innerHTML = $('blockquote', card).innerHTML;
+      $('.review-modal__where', reviewModal).textContent = $('.review__where', card).textContent;
+      reviewModal.showModal();
+    });
+    $('[data-close]', reviewModal).addEventListener('click', () => reviewModal.close());
+    reviewModal.addEventListener('click', (e) => { if (e.target === reviewModal) reviewModal.close(); });
+  }
 
   /* Reveal on scroll: one observer, each element animates once.
      Items revealed in the same batch inside a [data-stagger] parent arrive in order (--i).
@@ -305,12 +340,37 @@
     }
   }
 
-  /* Photo wall (gallery): each photo fades in once it has loaded, so lazy loading never pops */
-  $$('.wall img').forEach((img) => {
+  /* Photo wall (Our work): each photo fades in once it has loaded, so lazy loading never pops */
+  const watchWall = (img) => {
     const done = () => img.classList.add('is-loaded');
     if (img.complete && img.naturalWidth) done();
     else { img.addEventListener('load', done, { once: true }); img.addEventListener('error', done, { once: true }); }
-  });
+  };
+  $$('.wall img').forEach(watchWall);
+
+  /* "Show more": the first batch is in the page; later batches sit in <template data-wall-batch> elements,
+     which the browser neither renders nor downloads until we clone one in here. */
+  const wall = $('.wall');
+  const more = $('.wall__more');
+  if (wall && more) {
+    const batches = $$('template[data-wall-batch]');
+    const btn = $('button', more);
+    const status = $('.wall__status', more);
+    if (batches.length) {
+      more.hidden = false;
+      btn.addEventListener('click', () => {
+        const batch = batches.shift();
+        const items = Array.from(batch.content.cloneNode(true).children);
+        items.forEach((li) => wall.appendChild(li));
+        items.forEach((li) => $$('img', li).forEach(watchWall));
+        refreshGallery();
+        batch.remove();
+        status.textContent = `${items.length} more photos added.`;
+        if (items[0]) $('button', items[0]).focus({ preventScroll: true });
+        if (!batches.length) { more.hidden = true; }
+      });
+    }
+  }
 
   /* FAQ: smooth open and close */
   $$('.faq details').forEach((d) => {

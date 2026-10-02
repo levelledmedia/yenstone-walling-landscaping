@@ -5,6 +5,8 @@ Builds the inner pages of the Yenstone site from the homepage.
   services/*.html              the eight service pages (one shared design)
   about.html                   About us
   our-work.html                Our work (photo wall)
+  contact.html                 Contact
+  privacy-policy.html          Privacy policy
   service-versions/version-3.html   the kept "dark stone" layout, for later pages
 
 The header, mobile menu, process, FAQ, quote section, footer and lightbox are
@@ -21,6 +23,7 @@ import re
 SITE = pathlib.Path(__file__).resolve().parent.parent / 'site'
 home = (SITE / 'index.html').read_text()
 
+PLACEHOLDER = '<div class="ph" data-anim="settle"><span>Photo coming soon</span></div>'
 PHONE = '<svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>'
 
 # ------------------------------------------------------------------ shared chrome from the homepage
@@ -43,11 +46,16 @@ FAQ = between('<!-- FAQ -->', '<!-- QUOTE + CONTACT -->')
 QUOTE = between('<!-- QUOTE + CONTACT -->', '</main>')
 FOOTER = between('<!-- FOOTER -->', '<!-- LIGHTBOX -->')
 LIGHTBOX = between('<!-- LIGHTBOX -->', '<script src=')
+AREA = between('<!-- SERVICE AREA -->', '<!-- FAQ -->')
+QUOTE_FORM = re.search(r'(        <!-- TODO before launch.*?)\n      </div>\n    </section>', QUOTE, re.S).group(1)
+MAPS = 'https://www.google.com/maps/search/?api=1&amp;query=Perhams+Farm,+Sally+Lovells+Lane,+Yenston,+Templecombe,+BA8+0NE'
 
 
 def header_for(p, current=None, slug=None):
     h = HEADER.replace('<a href="index.html" aria-current="page">Home</a>', '<a href="index.html">Home</a>')
-    marks = {'home': 'index.html', 'about': 'about.html', 'services': 'index.html#services', 'work': 'our-work.html'}
+    marks = {'home': 'index.html', 'about': 'about.html', 'work': 'our-work.html', 'contact': 'contact.html'}
+    if current == 'services':
+        h = h.replace('<button class="nav__toggle"', '<button class="nav__toggle" aria-current="page"').replace('<button class="menu__toggle"', '<button class="menu__toggle" aria-current="page"')
     if current in marks and current != 'home':
         href = marks[current]
         h = re.sub(rf'<a href="{re.escape(href)}">', f'<a href="{href}" aria-current="page">', h)
@@ -81,13 +89,18 @@ PHOTOS = {
     'stone-detail-iris': (640, 375, 'Close view of cut stonework with iris leaves in front'),
 }
 # Newer photos supplied as originals (jpg/png), named for what they show so each page can pick the right ones
-EXT = {n: 'jpg' for n in ['stone-paved-passage', 'sandstone-patio-dining', 'rustic-stone-terrace', 'stone-flag-doorway', 'paved-courtyard-white-house',
+EXT = {n: 'jpg' for n in ['landscaping-brick-path-flower-borders', 'stone-paved-passage', 'sandstone-patio-dining', 'rustic-stone-terrace', 'stone-flag-doorway', 'paved-courtyard-white-house',
                           'terraced-stone-steps', 'terraced-patio-walls', 'orchard-garden-wall', 'pond-garden-wall', 'roadside-dry-stone-wall',
                           'stone-cottage-boundary-wall', 'terraced-dry-stone-walls', 'courtyard-low-stone-wall', 'excavator-retaining-wall',
                           'excavator-stepped-groundworks', 'dumper-garden-work', 'leaf-motif-garden-gate', 'wrought-iron-railing-welding',
                           'bridge-railing-clematis', 'brick-footbridge-railings']}
 EXT['spear-top-house-railings'] = 'png'
 PHOTOS.update({
+    'landscaping-brick-path-flower-borders': (1138, 1138, 'A brick path running between deep flower borders in a landscaped garden'),
+    'stone-walling-flower-border-wall': (1440, 1440, 'A dry stone wall running beside a planted border and a paved path'),
+    'stone-walling-gated-lane-wall': (1440, 1440, 'A long dry stone wall beside a narrow lane'),
+    'stone-walling-new-boundary-wall': (1440, 1440, 'A newly built dry stone boundary wall with young trees planted beside it'),
+    'stone-walling-tall-lane-wall': (1440, 1440, 'A tall dry stone wall rising beside a lane'),
     'stone-paved-passage': (960, 750, 'Irregular sandstone paving laid as a path beside a stone wall'),
     'sandstone-patio-dining': (640, 750, 'A sandstone patio with a metal table and chairs against a stone wall'),
     'rustic-stone-terrace': (640, 750, 'A terrace of random stone flags outside a stone house'),
@@ -110,10 +123,11 @@ PHOTOS.update({
     'brick-footbridge-railings': (533, 625, 'A cobbled path between stone walls with curled wrought iron handrails'),
     'spear-top-house-railings': (960, 750, 'Black iron spear-top railings above a low stone wall in front of a stone house'),
 })
-GALLERY_ORDER = ['coursed-wall', 'stone-detail-iris', 'curved-wall-field', 'oak-gate-paving', 'lawn-curved-wall', 'broad-steps',
-                 'flint-wall', 'pond-wall-bench', 'wall-lane', 'tree-relief-pool', 'oak-barn-wall', 'retaining-wall-rose',
-                 'formal-garden-steps', 'wall-steps-deer', 'signpost-wall', 'stone-house-glazing', 'gravel-drive-wall',
-                 'retaining-wall-curve', 'lawn-gate', 'wall-oak-gate-lane', 'stone-bridge']
+GALLERY_ORDER = ['coursed-wall', 'stone-detail-iris', 'curved-wall-field', 'landscaping-brick-path-flower-borders', 'oak-gate-paving', 'lawn-curved-wall',
+                 'broad-steps', 'stone-walling-flower-border-wall', 'flint-wall', 'pond-wall-bench', 'wall-lane', 'stone-walling-new-boundary-wall',
+                 'tree-relief-pool', 'oak-barn-wall', 'retaining-wall-rose', 'stone-walling-gated-lane-wall', 'formal-garden-steps', 'wall-steps-deer',
+                 'signpost-wall', 'stone-walling-tall-lane-wall', 'stone-house-glazing', 'gravel-drive-wall', 'retaining-wall-curve', 'lawn-gate',
+                 'wall-oak-gate-lane', 'stone-bridge']
 # (order chosen so the justified rows pack evenly: three photos per row at common desktop widths)
 
 # ------------------------------------------------------------------ service copy
@@ -125,8 +139,8 @@ QUOTES = ('Written quotes', 'The work and the price set out clearly before we st
 # landscaping leads, dry stone walling second, then the rest.
 SERVICES = [
     dict(
-        slug='landscaping', name='Landscaping',
-        desc='Landscaping in South Somerset from Yenstone: hard landscaping, garden features, outdoor improvements and bespoke projects. Call 01963 371123 for a free quote.',
+        slug='landscaping-somerset', name='Landscaping',
+        desc='Landscaping in Somerset and Dorset from Yenstone: hard landscaping, garden features, outdoor improvements and bespoke projects. Call 01963 371123 for a free quote.',
         confirm='garden features and bespoke project examples are inferred from the client\'s one-line description and photos; confirm',
         standfirst='Hard landscaping, garden features, outdoor improvements and bespoke projects, planned and built as one.',
         hero=('hero-landscaping-terraced-patio', 1672, 941, 'A stone terrace and patio with low dry stone walls in a garden'),
@@ -144,11 +158,11 @@ SERVICES = [
         ],
         close='Not sure where to start? Call us. We will come and look at the garden, talk through what you want and explain how we would approach it.',
         w_p='Recent work in Somerset and Dorset. Select a photo to see it larger.',
-        photos=['stone-bridge', 'lawn-gate', 'pond-wall-bench', 'orchard-garden-wall', 'retaining-wall-curve', 'pond-garden-wall', 'lawn-curved-wall', 'terraced-patio-walls'],
+        photos=['stone-bridge', 'landscaping-brick-path-flower-borders', 'pond-wall-bench', 'lawn-gate', 'orchard-garden-wall', 'retaining-wall-curve', 'pond-garden-wall', 'terraced-patio-walls'],
     ),
     dict(
-        slug='dry-stone-walling', name='Dry stone walling',
-        desc='Dry stone walling in South Somerset from Yenstone: boundary and retaining walls, repairs and restoration, built by a certified waller. Call 01963 371123.',
+        slug='dry-stone-walling-somerset', name='Dry stone walling',
+        desc='Dry stone walling in Somerset and Dorset from Yenstone: boundary and retaining walls, repairs and restoration, built by a certified waller. Call 01963 371123.',
         standfirst='Traditional dry stone walls, including boundary walls, retaining walls, repairs and restoration, built by hand in local stone by a certified waller.',
         hero=('hero-walling-urn-garden', 1672, 941, 'A dry stone wall with a stone urn on the pier, looking over open fields'),
         facts=[EST, ('DSWA certified', 'Qualified through the Dry Stone Walling Association.'), LOCAL],
@@ -165,11 +179,11 @@ SERVICES = [
         ],
         close='Not sure what your wall needs? Call us. We will come and look, talk through the options and send you a written quote.',
         w_p='Walls we have built in Somerset and Dorset. Select a photo to see it larger.',
-        photos=['tree-relief-pool', 'roadside-dry-stone-wall', 'stone-cottage-boundary-wall', 'excavator-retaining-wall', 'curved-wall-field', 'terraced-dry-stone-walls', 'coursed-wall', 'signpost-wall'],
+        photos=['tree-relief-pool', 'stone-walling-flower-border-wall', 'stone-walling-gated-lane-wall', 'stone-walling-new-boundary-wall', 'wall-lane', 'stone-walling-tall-lane-wall', 'curved-wall-field', 'stone-cottage-boundary-wall'],
     ),
     dict(
-        slug='steps-and-terraces', name='Steps and terraces',
-        desc='Steps and terraces in South Somerset from Yenstone: bespoke stone steps, terracing and raised landscape features designed to suit the surrounding garden. Call 01963 371123.',
+        slug='steps-and-terraces-somerset', name='Steps and terraces',
+        desc='Steps and terraces in Somerset and Dorset from Yenstone: bespoke stone steps, terracing and raised landscape features designed to suit the surrounding garden. Call 01963 371123.',
         standfirst='Bespoke stone steps, terracing and raised landscape features designed to suit the surrounding garden.',
         hero=('formal-garden-steps-cinematic', 1638, 960, 'Broad stone steps rising between clipped lawns and low stone walls'),
         facts=[EST, ('Built into the land', 'Steps and terraces shaped around the way your ground falls.'), LOCAL],
@@ -189,8 +203,8 @@ SERVICES = [
         photos=['terraced-stone-steps', 'formal-garden-steps', 'broad-steps', 'wall-steps-deer', 'retaining-wall-rose', 'terraced-patio-walls'],
     ),
     dict(
-        slug='paving', name='Paving and patios',
-        desc='Paving and patios in South Somerset from Yenstone: patios, paths and paved areas in durable stone finishes for gardens and outdoor spaces. Call 01963 371123.',
+        slug='paving-and-patios-somerset', name='Paving and patios',
+        desc='Paving and patios in Somerset and Dorset from Yenstone: patios, paths and paved areas in durable stone finishes for gardens and outdoor spaces. Call 01963 371123.',
         standfirst='Patios, paths and paved areas using durable stone finishes for gardens and outdoor spaces.',
         hero=('hero-paving-courtyard', 1672, 941, 'A large sandstone paved courtyard with seating beside a white-painted cottage'),
         facts=[EST, ('Firm foundations', 'Laid on properly prepared ground, so surfaces stay level.'), LOCAL],
@@ -210,8 +224,8 @@ SERVICES = [
         photos=['sandstone-patio-dining', 'rustic-stone-terrace', 'stone-flag-doorway', 'paved-courtyard-white-house', 'stone-paved-passage', 'oak-gate-paving', 'gravel-drive-wall', 'stone-house-glazing'],
     ),
     dict(
-        slug='groundworks', name='Groundworks',
-        desc='Groundworks in South Somerset from Yenstone: site preparation, excavation, foundations and associated groundwork for landscaping and construction projects. Call 01963 371123.',
+        slug='groundworks-somerset', name='Groundworks',
+        desc='Groundworks in Somerset and Dorset from Yenstone: site preparation, excavation, foundations and associated groundwork for landscaping and construction projects. Call 01963 371123.',
         confirm='scope of groundworks (excavation, foundations, drives, drainage) is inferred; confirm with the client',
         standfirst='Site preparation, excavation, foundations and associated groundwork for landscaping and construction projects.',
         hero=('excavator-stepped-groundworks', 960, 750, 'A mini excavator beside newly shuttered and concreted steps in a garden'),
@@ -230,11 +244,10 @@ SERVICES = [
         close='Need the ground sorting first? Call us. We will come and look and send you a written quote.',
         w_p='Groundworks in progress. Select a photo to see it larger.',
         photos=['dumper-garden-work', 'excavator-retaining-wall'],
-        shots=['More groundworks photos, landscape 1400x900'],
     ),
     dict(
-        slug='septic-tanks', name='Septic tanks',
-        desc='Septic tanks in South Somerset from Yenstone: installation, including the excavation, groundworks and drainage the system needs. Call 01963 371123 for a free quote.',
+        slug='septic-tanks-somerset', name='Septic tanks',
+        desc='Septic tanks in Somerset and Dorset from Yenstone: installation, including the excavation, groundworks and drainage the system needs. Call 01963 371123 for a free quote.',
         confirm='scope of septic tank and drainage work, and any regulations to mention; confirm with the client. Real photos needed (see SHOT-LIST.md)',
         standfirst='Septic tank installation, including associated excavation, groundworks and drainage requirements.',
         hero=('stone-bridge-cinematic-overcast', 1639, 959, 'A low stone bridge over a stream in a planted garden'),
@@ -253,11 +266,10 @@ SERVICES = [
         close='Not sure what your property needs? Call us. We will come and look and send you a written quote.',
         w_p='Photos of our septic tank installations are coming soon.',
         photos=None,
-        shots=['Septic tank installation, landscape 1400x900', 'Drainage and soakaway work, landscape 1400x900', 'Finished ground reinstated, landscape 1400x900'],
     ),
     dict(
-        slug='ironmongery', name='Bespoke ironmongery',
-        desc='Bespoke ironmongery in South Somerset from Yenstone: custom-made ironwork and metal features for gardens, gates, landscaping and stonework. Call 01963 371123.',
+        slug='bespoke-ironmongery-somerset', name='Bespoke ironmongery',
+        desc='Bespoke ironmongery in Somerset and Dorset from Yenstone: custom-made ironwork and metal features for gardens, gates, landscaping and stonework. Call 01963 371123.',
         confirm='scope of ironmongery is inferred from the client\'s one-line description; confirm what they make.',
         standfirst='Custom-made ironwork and metal features designed to complement gardens, gates, landscaping and stonework.',
         hero=('hero-ironmongery-bridge', 1672, 941, 'A cobbled path between stone walls with curled wrought iron handrails'),
@@ -278,8 +290,8 @@ SERVICES = [
         photos=['spear-top-house-railings', 'leaf-motif-garden-gate', 'wrought-iron-railing-welding', 'bridge-railing-clematis', 'brick-footbridge-railings'],
     ),
     dict(
-        slug='stone-cladding', name='Stone cladding',
-        desc='Stone cladding in South Somerset from Yenstone: traditional and contemporary stone cladding, including lime and mortared walling. Call 01963 371123 for a free quote.',
+        slug='stone-cladding-somerset', name='Stone cladding',
+        desc='Stone cladding in Somerset and Dorset from Yenstone: traditional and contemporary stone cladding, including lime and mortared walling. Call 01963 371123 for a free quote.',
         confirm='scope of cladding is inferred from the client\'s one-line description; confirm. SWAP: hero is a stand-in texture, use a real cladding photo (SHOT-LIST.md)',
         standfirst='Traditional and contemporary stone cladding, including lime and mortared walling.',
         hero=('stone-texture', 1920, 1080, 'Close view of natural stonework'),
@@ -298,14 +310,13 @@ SERVICES = [
         close='Thinking about cladding? Call us. We will come and look and send you a written quote.',
         w_p='Photos of our stone cladding are coming soon.',
         photos=None,
-        shots=['Traditional stone cladding, landscape 1400x900', 'Contemporary stone cladding, landscape 1400x900', 'Lime-mortared walling, landscape 1400x900'],
     ),
 ]
 SLUG_ORDER = [s['slug'] for s in SERVICES]
 
 # ------------------------------------------------------------------ small builders
 def btns(kind, size='btn--lg'):
-    first = {'dark': 'btn--call', 'light': 'btn--deep', 'split': 'btn--dark'}[kind]
+    first = {'dark': 'btn--call', 'light': 'btn--dark', 'split': 'btn--dark'}[kind]
     second = 'btn--ghost' if kind == 'dark' else 'btn--outline'
     call = f'<a class="btn {first} {size}" href="tel:01963371123">{PHONE}Call 01963 371123</a>'
     quote = f'<a class="btn {second} {size}" href="#quote">Get a free quote</a>'
@@ -331,7 +342,11 @@ def items_html(items):
     return '\n          '.join(f'<div class="svc-item" data-anim="settle"><h3>{h}</h3><p>{t}</p></div>' for h, t in items)
 
 
-def shell(p, title, desc, body_class, main, current, slug=None, noindex=False):
+def quote_block(quote, p):
+    return f'    <!-- QUOTE (same as the homepage) -->\n{rel(QUOTE, p)}' if quote else ''
+
+
+def shell(p, title, desc, body_class, main, current, slug=None, noindex=False, quote=True):
     robots = '\n  <meta name="robots" content="noindex">' if noindex else ''
     return f'''<!doctype html>
 <html lang="en-GB">
@@ -358,8 +373,7 @@ def shell(p, title, desc, body_class, main, current, slug=None, noindex=False):
 
   {header_for(p, current, slug)}<main id="main">
 {main}
-    <!-- QUOTE (same as the homepage) -->
-{rel(QUOTE, p)}  </main>
+{quote_block(quote, p)}  </main>
 
   {rel(FOOTER, p)}  {LIGHTBOX}<script src="{p}js/main.js" defer></script>
 </body>
@@ -389,18 +403,17 @@ def service_page(s):
     p = '../'
     confirm = f'    <!-- CONFIRM with client: {s["confirm"]} -->\n' if s.get('confirm') else '    <!-- CONFIRM with client: copy is drafted from the facts on the homepage; check before launch -->\n'
     facts = '\n        '.join(f'<li><strong>{a}</strong><span>{b}</span></li>' for a, b in s['facts'])
-    if s['photos'] and s.get('shots'):
-        # a few real photos plus placeholder blocks for the rest, in a row of three
-        tiles = '\n          '.join(f'<div class="ph" data-shot="{t}"><span>{t.split(",")[0]}</span></div>' for t in s['shots'])
-        gallery = f'<!-- SWAP: add more real photos of this work (SHOT-LIST.md) -->\n        <div class="svc-mosaic svc-mosaic--ph" data-gallery>\n          {photo_buttons(s["photos"], p, anim=False)}\n          {tiles}\n        </div>'
-    elif s['photos']:
-        mod = ' svc-mosaic--5' if len(s['photos']) == 5 else ''
-        assert len(s['photos']) in (5, 6, 8), s['slug']   # the mosaic grid is laid out for 5, 6 or 8 photos
-        gallery = f'<div class="svc-mosaic{mod}" data-gallery data-stagger>\n          {photo_buttons(s["photos"], p)}\n        </div>'
-    else:
-        tiles = '\n          '.join(f'<div class="ph" data-shot="{t}"><span>{t.split(",")[0]}</span></div>' for t in s['shots'])
-        gallery = f'<!-- SWAP: real photos of this work (SHOT-LIST.md) -->\n        <div class="svc-mosaic svc-mosaic--ph">\n          {tiles}\n        </div>'
-    title = f'{s["name"]} in South Somerset'
+    # The mosaic is laid out for 5, 6 or 8 tiles. Real photos come first; any gap is filled with plain placeholders,
+    # so a page with no photos yet already looks like it will once they arrive.
+    photos = s.get('photos') or []
+    total = len(photos) if len(photos) in (5, 6, 8) else (8 if len(photos) > 6 else 6)
+    mod = ' svc-mosaic--5' if total == 5 else ''
+    tiles = photo_buttons(photos, p).split('\n          ') if photos else []
+    tiles += [PLACEHOLDER] * (total - len(photos))
+    swap = '<!-- SWAP: real photos of this work, replace each placeholder with a photo button (see the others) -->\n        ' if len(photos) < total else ''
+    gdata = ' data-gallery' if photos else ''
+    gallery = swap + f'<div class="svc-mosaic{mod}"{gdata} data-stagger>\n          ' + '\n          '.join(tiles) + '\n        </div>'
+    title = f'{s["name"]} in Somerset and Dorset'
     main = f'''{confirm}{photo_hero(p, s['hero'], title, s['standfirst'])}
     <section class="trust" aria-label="About our work">
       <ul class="trust__list">
@@ -506,6 +519,9 @@ def about_page():
 
 
 # ------------------------------------------------------------------ our work page
+WORK_BATCH = 12   # photos shown at first, and added per press of "Show more"
+
+
 def work_page():
     p = ''
     items = []
@@ -514,7 +530,12 @@ def work_page():
         lazy = i >= 4
         tag = img_tag(n, w, h, alt, p, lazy=lazy, extra=' decoding="async"')
         items.append(f'<li class="wall__item" style="--ar:{w / h:.4f}"><button type="button" class="svc-photo">{tag}</button></li>')
-    wall = '\n        '.join(items)
+    # First batch is in the page. Later batches sit in <template> elements: not rendered and not downloaded until
+    # "Show more" is pressed (js/main.js). To add photos: add them to PHOTOS and GALLERY_ORDER, then rebuild.
+    first, rest = items[:WORK_BATCH], items[WORK_BATCH:]
+    wall = '\n        '.join(first)
+    batches = '\n'.join('        <template data-wall-batch>\n          ' + '\n          '.join(rest[k:k + WORK_BATCH]) + '\n        </template>'
+                        for k in range(0, len(rest), WORK_BATCH))
     main = f'''    <!-- HERO -->
     <section class="v3-hero svc-hero on-dark" aria-labelledby="hero-title">
       <div class="v3-hero__bg" aria-hidden="true"></div>
@@ -538,6 +559,11 @@ def work_page():
         <ul class="wall" data-gallery>
         {wall}
         </ul>
+        <div class="wall__more" hidden>
+          <button class="btn btn--outline btn--lg" type="button">Show more photos</button>
+          <p class="wall__status" role="status" aria-live="polite"></p>
+        </div>
+{batches}
       </div>
     </section>
 '''
@@ -546,10 +572,107 @@ def work_page():
                  'gallery-page', main, 'work')
 
 
+# ------------------------------------------------------------------ contact page
+def contact_page():
+    p = ''
+    hero = photo_hero(p, ('stone-bridge-cinematic-evening', 1536, 1024, 'A low stone bridge over a stream in a planted garden at dusk'),
+                      'Contact us',
+                      'Call, email or send us a few details about your garden. We will arrange a visit and send you a written quote.')
+    ways = f"""    <!-- WAYS TO REACH US -->
+    <section class="also" aria-labelledby="ways-title">
+      <div class="wrap">
+        <h2 id="ways-title" data-anim="settle">Get in touch</h2>
+        <ul class="also__list" data-anim="draw" data-stagger>
+          <li data-anim="settle">
+            <div class="also__item">
+              <h3>Call us</h3>
+              <p>The quickest way. We will answer if we can, and call you back if we are on site.</p>
+              <a class="also__big" href="tel:01963371123">01963 371123</a>
+              <a class="tile__link" href="tel:07751278363">Mobile: 07751 278363</a>
+            </div>
+          </li>
+          <li data-anim="settle">
+            <div class="also__item">
+              <h3>Email us</h3>
+              <p>Tell us about the job and, if you have them, send a few photos of the site.</p>
+              <a class="also__big also__big--sm" href="mailto:info@yenstonewalling.co.uk">info@yenstonewalling.co.uk</a>
+            </div>
+          </li>
+          <li data-anim="settle">
+            <div class="also__item">
+              <h3>Our base</h3>
+              <p>Perhams Farm, Sally Lovells Lane,<br>Yenston, Templecombe, Somerset BA8 0NE</p>
+              <a class="tile__link" href="{MAPS}" target="_blank" rel="noopener">View on map</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+"""
+    quote = f"""    <!-- MESSAGE FORM (the form itself is shared with the homepage) -->
+    <section class="quote on-dark" id="quote" aria-labelledby="quote-title">
+      <div class="quote__bg" aria-hidden="true"></div>
+      <div class="wrap quote__grid">
+        <div class="quote__info">
+          <h2 id="quote-title" data-anim="settle">Prefer to write it down?</h2>
+          <p>Tell us a little about your property and what you have in mind. We will call you back to arrange a visit and send you a written quote.</p>
+          <dl class="contact">
+            <div><dt>Where</dt><dd>The town or postcode of the job</dd></div>
+            <div><dt>What</dt><dd>What you would like done, in a sentence or two</dd></div>
+            <div><dt>Photos</dt><dd>They help, but they are not essential</dd></div>
+          </dl>
+        </div>
+
+{QUOTE_FORM}
+      </div>
+    </section>
+"""
+    main = f"""{hero}
+{ways}
+    {rel(AREA, p)}{rel(FAQ, p)}{quote}"""
+    return shell(p, 'Contact us | Yenstone Walling &amp; Landscaping, Yenston, Templecombe',
+                 'Contact Yenstone Walling and Landscaping at Yenston, near Templecombe: call 01963 371123, email or send a message for a free quote in Somerset and Dorset.',
+                 'contact-page', main, 'contact', quote=False)
+
+
+# ------------------------------------------------------------------ privacy policy (copy lives in policy_copy.py)
+def policy_page():
+    from policy_copy import INTRO, SECTIONS
+    p = ''
+    body = '\n'.join(
+        f'        <div class="policy__sec">\n          <h2>{t}</h2>\n          <div class="policy__body">{x}\n          </div>\n        </div>'
+        for t, x in SECTIONS)
+    main = f'''    <!-- CONFIRM with client: see the note at the top of tools/policy_copy.py -->
+    <!-- HERO -->
+    <section class="v3-hero svc-hero on-dark" aria-labelledby="hero-title">
+      <div class="v3-hero__bg" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="v3-hero__grid">
+          <div class="v3-hero__text">
+            <h1 id="hero-title" data-reveal>Privacy policy</h1>
+            <p class="v3-hero__lede" data-reveal>How we look after the personal information you share with us.</p>
+          </div>
+          <img class="v3-hero__mark" src="{p}assets/img/logo-white.png" width="683" height="699" alt="Yenstone stone work trade mark, established 1991">
+        </div>
+      </div>
+    </section>
+
+    <section class="policy" aria-label="Privacy policy">
+      <div class="wrap">
+        <p class="policy__intro">{INTRO}</p>
+{body}
+      </div>
+    </section>
+'''
+    return shell(p, 'Privacy policy | Yenstone Walling &amp; Landscaping',
+                 'How Yenstone Walling and Landscaping collects, uses and protects the personal information you share with us.',
+                 'policy-page', main, 'policy', quote=False)
+
+
 # ------------------------------------------------------------------ kept layout: version 3 (dry stone walling copy)
 def version3_page():
     p = '../'
-    s = next(x for x in SERVICES if x['slug'] == 'dry-stone-walling')
+    s = next(x for x in SERVICES if x['slug'] == 'dry-stone-walling-somerset')
     facts = '\n          '.join(f'<li data-anim="settle"><strong>{a}</strong><span>{b}</span></li>' for a, b in s['facts'])
     main = f'''    <!-- HERO -->
     <section class="v3-hero svc-hero on-dark" aria-labelledby="hero-title">
@@ -557,7 +680,7 @@ def version3_page():
       <div class="wrap">
         <div class="v3-hero__grid">
           <div class="v3-hero__text">
-            <h1 id="hero-title" data-reveal>{s['name']} in South Somerset</h1>
+            <h1 id="hero-title" data-reveal>{s['name']} in Somerset and Dorset</h1>
             <p class="v3-hero__lede" data-reveal>{s['standfirst']}</p>
             <div class="svc-btns" data-reveal>
               {btns('dark')}
@@ -612,7 +735,7 @@ def version3_page():
       </div>
     </section>
 '''
-    return shell(p, 'Dry stone walling in South Somerset, layout 3 | Yenstone', s['desc'], 'v3', main, 'services', slug=s['slug'], noindex=True)
+    return shell(p, 'Dry stone walling in Somerset and Dorset, layout 3 | Yenstone', s['desc'], 'v3', main, 'services', slug=s['slug'], noindex=True)
 
 
 # ------------------------------------------------------------------ write everything
@@ -623,4 +746,6 @@ for s in SERVICES:
     print('wrote services/' + s['slug'] + '.html')
 (SITE / 'about.html').write_text(about_page()); print('wrote about.html')
 (SITE / 'our-work.html').write_text(work_page()); print('wrote our-work.html')
+(SITE / 'contact.html').write_text(contact_page()); print('wrote contact.html')
+(SITE / 'privacy-policy.html').write_text(policy_page()); print('wrote privacy-policy.html')
 (SITE / 'service-versions' / 'version-3.html').write_text(version3_page()); print('wrote service-versions/version-3.html')
