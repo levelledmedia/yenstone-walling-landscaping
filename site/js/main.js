@@ -295,7 +295,8 @@
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const allAnim = $$('[data-anim]');
   const groups = $$('[data-anim-group]');
-  const solo = allAnim.filter((el) => !el.closest('[data-anim-group]'));
+  const early = $$('[data-anim-early]');
+  const solo = allAnim.filter((el) => !el.closest('[data-anim-group]') && !el.hasAttribute('data-anim-early'));
   if (allAnim.length) {
     if (prefersReduced || !('IntersectionObserver' in window)) {
       allAnim.forEach((el) => el.classList.add('is-in'));
@@ -336,6 +337,12 @@
       }, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
       solo.forEach((el) => reveal.observe(el));
       groups.forEach((el) => reveal.observe(el));
+      // [data-anim-early]: large bands that would otherwise show as a gap. They start fading in while still
+      // well below the fold and do not wait for their photos (lazy photos are already on their way).
+      const revealEarly = new IntersectionObserver((entries) => {
+        entries.filter((en) => en.isIntersecting).forEach((en) => { revealEarly.unobserve(en.target); en.target.classList.add('is-in'); });
+      }, { threshold: 0, rootMargin: '0px 0px 70% 0px' });
+      early.forEach((el) => revealEarly.observe(el));
       document.documentElement.classList.add('anim-ready');
     }
   }
@@ -365,7 +372,7 @@
         items.forEach((li) => $$('img', li).forEach(watchWall));
         refreshGallery();
         batch.remove();
-        status.textContent = `${items.length} more photos added.`;
+        status.textContent = `${items.length} more photos added.`; // read out by screen readers only
         if (items[0]) $('button', items[0]).focus({ preventScroll: true });
         if (!batches.length) { more.hidden = true; }
       });
@@ -413,6 +420,22 @@
   const form = $('#quote-form');
   const done = $('#form-done');
   if (form) {
+    /* TEMPORARY, until the client approves the design: with no data-endpoint the form is not live.
+       Fields are read-only and a notice says why. Delete this block (or set data-endpoint) to switch it on. */
+    const live = Boolean(form.dataset.endpoint);
+    let showNotice = () => {};
+    if (!live) {
+      const note = document.createElement('p');
+      note.className = 'form__notice';
+      note.setAttribute('role', 'status');
+      note.hidden = true;
+      note.textContent = 'This form is not active yet. It is waiting for design approval, so nothing you type here will be sent.';
+      $('h3', form).after(note);
+      $$('input:not([name="website"]), textarea', form).forEach((f) => { f.readOnly = true; });
+      showNotice = () => { note.hidden = false; };
+      form.addEventListener('focusin', showNotice);
+      form.addEventListener('pointerdown', showNotice);
+    }
     const rules = {
       name: (v) => (v.trim() ? '' : 'Enter your name so we know who to ask for.'),
       phone: (v) => {
@@ -442,6 +465,7 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (!live) { showNotice(); return; }
       const inputs = $$('input[name="name"], input[name="phone"], input[name="email"]', form);
       const results = inputs.map(check);
       const firstBad = inputs.find((_, i) => !results[i]);

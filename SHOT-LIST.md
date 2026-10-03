@@ -41,7 +41,7 @@ The service pages, About page and Our work page were built after the homepage an
 
 | Page | Slot | Now | What to supply |
 |------|------|-----|----------------|
-| Landscaping, Dry stone walling, Paving and patios, Bespoke ironmongery | Hero | real photos (`hero-landscaping-terraced-patio`, `hero-walling-urn-garden`, `hero-paving-courtyard`, `hero-ironmongery-bridge`), 1672px wide | Fine for now; higher-resolution originals if the client has them |
+| Landscaping, About us, Paving and patios, Bespoke ironmongery | Hero | real photos (`hero-landscaping-terraced-patio`, `hero-walling-urn-garden` (About),  `hero-paving-courtyard`, `hero-ironmongery-bridge`), 1672px wide | Fine for now; higher-resolution originals if the client has them |
 | Groundworks | Hero | `excavator-stepped-groundworks.jpg`, real photo but only 960px wide | A wider original (2400px+) |
 | Groundworks | Examples of our work | 2 real photos and 4 "Photo coming soon" blocks | More photos of excavation, foundations and drives |
 | Septic tanks | Hero | `stone-bridge-cinematic-overcast.webp`, generic garden stand-in | Real photo of an installation or finished reinstated ground, landscape, 2400px+ |
@@ -52,7 +52,6 @@ The service pages, About page and Our work page were built after the homepage an
 | Bespoke ironmongery | Examples of our work | 5 real photos (originals 533 to 960px wide) | Larger originals, plus any gates or features not yet photographed |
 | Homepage | Services cards 6 to 8 | no images (septic tanks, ironmongery, stone cladding sit in the "We also do" text band) | Optional: photos if the client wants them as cards |
 | Homepage | Groundworks card | `lawn-gate-cinematic.webp` (lawn, not groundworks) | Swap for a groundworks photo, for example `excavator-stepped-groundworks.jpg` |
-| About us | Hero | `hero-concept-rural-wall.webp`, AI concept | Real photo of a Yenstone wall in the landscape; ideally one of the team at work |
 | Our work | Photo wall | the 21 homepage project photos (most are 640px wide) | 1600px+ originals, plus project names and locations; the newer project photos could be added |
 
 The other service page heroes use the existing "cinematic" images from the homepage.

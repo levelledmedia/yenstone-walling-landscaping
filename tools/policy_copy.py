@@ -7,13 +7,13 @@ Update it if the client adds analytics, a form service, newsletters, a booking s
 that handles personal data, and have it reviewed before launch.
 """
 
-INTRO = ('This policy explains what personal information Yenstone Walling &amp; Landscaping collects through this website '
+INTRO = ('This policy explains what personal information Yenstone Walling &amp; Landscaping Ltd collects through this website '
          'and when you get in touch, how we use it, and the choices you have.')
 
 # (heading, html body)
 SECTIONS = [
     ('Who we are', '''
-            <p>This website is run by Yenstone Walling &amp; Landscaping. We are the controller of the personal information described in this policy, which means we decide how and why it is used.</p>
+            <p>This website is run by Yenstone Walling &amp; Landscaping Ltd. We are the controller of the personal information described in this policy, which means we decide how and why it is used.</p>
             <p>Perhams Farm, Sally Lovells Lane, Yenston, Templecombe, Somerset BA8 0NE<br>
             Phone: <a href="tel:01963371123">01963 371123</a><br>
             Email: <a href="mailto:info@yenstonewalling.co.uk">info@yenstonewalling.co.uk</a></p>'''),

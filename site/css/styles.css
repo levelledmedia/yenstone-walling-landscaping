@@ -169,7 +169,9 @@ html:not(.js) .has-sub:hover .subnav { visibility: visible; opacity: 1; transfor
 /* Fine grain over the photograph for a printed, tactile feel */
 .hero__shade::after { content: ""; position: absolute; inset: 0; opacity: .09; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
 .hero__content { position: relative; z-index: 1; width: min(var(--wrap), 100% - 2 * var(--gutter)); margin-inline: auto; padding: 150px 0 calc(var(--edge-h) + clamp(32px, 4.5vw, 64px)); }
-.hero h1 { font-size: var(--step-4); line-height: 1.02; max-width: 17ch; }
+/* Short windows: keep the room above the headline, not below the buttons. The bottom gap only needs to clear the section edge. */
+@media (max-height: 820px) { .hero__content { padding-bottom: calc(var(--edge-h) + 12px); } }
+.hero h1, .hero__title { font-size: var(--step-4); line-height: 1.02; max-width: 17ch; }
 /* The title leaves air under its baseline and the lede has leading above it, so the title-to-lede margin is kept small: the paragraph reads as part of the title, with a clearer break before the buttons */
 .hero__lede { font-size: var(--step-1); line-height: 1.5; max-width: 38ch; margin: clamp(6px, .6vw, 10px) 0 clamp(28px, 3.2vw, 44px); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -258,7 +260,7 @@ html:not(.js) .has-sub:hover .subnav { visibility: visible; opacity: 1; transfor
 .review__more { padding: 0; border: 0; background: none; font: 600 var(--step--1)/1.3 var(--font-body); color: var(--bark); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1.5px; cursor: pointer; }
 .review__more:hover { color: var(--deep); }
 .testimonials__cta { margin-top: clamp(80px, 10vw, 144px); text-align: center; display: grid; justify-items: center; }
-.testimonials__cta p { margin: 0 auto clamp(28px, 3vw, 40px); max-width: 20ch; font: 450 var(--step-3)/1.15 var(--font-display); letter-spacing: var(--h-ls); color: var(--deep); text-wrap: balance; }
+.testimonials__cta p { margin: 0 auto clamp(24px, 2.6vw, 32px); max-width: 26ch; font: 450 var(--step-2)/1.25 var(--font-display); letter-spacing: var(--h-ls); color: var(--deep); text-wrap: balance; }
 .testimonials__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
 .testimonials :focus-visible { outline-color: var(--deep); }
 
@@ -364,7 +366,7 @@ html:not(.js) .has-sub:hover .subnav { visibility: visible; opacity: 1; transfor
   linear-gradient(180deg, rgba(43,31,26,.55) 0%, rgba(43,31,26,0) 28%),
   linear-gradient(0deg, rgba(43,31,26,.7) 0%, rgba(43,31,26,0) 45%),
   linear-gradient(90deg, rgba(43,31,26,.92) 0%, rgba(43,31,26,.74) 48%, rgba(43,31,26,.5) 100%),
-  url("../assets/img/quote-bg.webp") center / cover; }
+  url("../assets/img/quote-bg-option-2.webp") center / cover; }
 .quote__bg::after { content: ""; position: absolute; inset: 0; opacity: .08; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
 .quote__grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(32px, 7vw, 100px); align-items: start; }
 .quote h2 { margin-bottom: .5em; max-width: 14ch; }
@@ -390,6 +392,8 @@ html:not(.js) .has-sub:hover .subnav { visibility: visible; opacity: 1; transfor
 .field__error:empty { display: none; }
 .form .btn { width: 100%; margin-top: 4px; }
 .form__fine { margin: 14px 0 0; font-size: .875rem; color: var(--ink-soft); }
+.form__notice { margin: 0 0 18px; padding: 12px 14px; background: rgba(185, 139, 78, .2); border-left: 3px solid var(--hamstone); font-size: var(--step--1); line-height: 1.45; }
+.form__notice[hidden] { display: none; }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .form-done:focus { outline: none; }
 .form-done[hidden] { display: none; }
@@ -400,7 +404,7 @@ html:not(.js) .has-sub:hover .subnav { visibility: visible; opacity: 1; transfor
 .footer__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.3fr; gap: clamp(24px, 4vw, 56px); }
 .footer__brand img { width: 150px; margin-bottom: 14px; }
 .footer__brand p { font-size: var(--step--1); color: rgba(236, 230, 218, .8); max-width: 28ch; }
-.footer__brand .footer__badge { display: block; width: 138px; height: auto; margin: 20px 0 0; padding: 8px 10px; background: #fff; }
+.footer__brand .footer__badge { display: block; width: 150px; height: auto; margin: 32px 0 0; }
 .footer h2 { font: 600 .95rem/1.2 var(--font-body); letter-spacing: .06em; text-transform: uppercase; color: var(--hamstone-tint); margin-bottom: 14px; }
 .footer li { margin-bottom: 0; }
 .footer li a { display: inline-block; padding: 10px 0; }
@@ -470,7 +474,8 @@ html:not(.js) .has-sub:hover .subnav { visibility: visible; opacity: 1; transfor
   .hero { min-height: min(100svh, 780px); }
   .hero__content { padding-top: 110px; }
   .hero__actions, .hero__actions .btn { width: 100%; }
-  .hero h1 { max-width: none; }
+  .hero h1, .hero__title { max-width: none; font-size: clamp(2.45rem, 10.6vw, 2.9rem); }
+  .menu li a, .menu__toggle { font-size: clamp(1.7rem, 7vw, 2.3rem); }
   .trust__list { grid-template-columns: minmax(0, 1fr); row-gap: 14px; }
   .trust__list li { border-left: 0; padding-left: 0; }
   .logo { width: 140px; }
@@ -568,6 +573,7 @@ html:not(.js) .has-sub:hover .subnav { visibility: visible; opacity: 1; transfor
 /* ---------- FAQ: heading anchored by a line of text, every question in its own box ---------- */
 .fq__head { position: sticky; top: 110px; display: grid; gap: 18px; }
 .fq__head h2 { position: static; }
+@media (max-width: 1020px) { .fq__head { position: static; } }
 .fq__head p { margin: 0; max-width: 34ch; color: var(--ink-soft); }
 .faq--boxes { display: grid; gap: 12px; }
 .faq--boxes details, .faq--boxes details:last-child { border: 0; background: var(--bone); padding-inline: clamp(20px, 2.5vw, 32px); transition: box-shadow .25s; }
@@ -579,7 +585,7 @@ html:not(.js) .has-sub:hover .subnav { visibility: visible; opacity: 1; transfor
 /* ---------- Our work: "Show more" ---------- */
 .wall__more { display: grid; justify-items: center; gap: 12px; margin-top: clamp(32px, 4vw, 56px); }
 .wall__more[hidden] { display: none; }
-.wall__status { margin: 0; font-size: var(--step--1); color: var(--ink-soft); }
+.wall__status { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } /* spoken to screen readers only */
 
 /* ---------- Full review dialog ---------- */
 .review-modal { border: 0; padding: 0; background: var(--linen); color: var(--deep); width: min(640px, calc(100% - 2 * var(--gutter))); max-height: calc(100svh - 48px); overflow: auto; --focus: var(--bark); }

@@ -1,7 +1,7 @@
 /* ==========================================================================
    Inner pages: services, about and gallery (plus the kept "version 3" layout)
    Loads after styles.css and reuses its tokens, buttons, header, FAQ, process,
-   quote form and footer. Scoped blocks: .service, .about, .contact-page, .policy-page, .gallery-page, .v3-*
+   quote form and footer. Scoped blocks: .service, .about, .policy-page, .gallery-page, .v3-*
    ========================================================================== */
 
 /* ---------- Shared ---------- */
@@ -31,8 +31,8 @@
    The homepage hero at a shorter height, a quiet text page, a bone band of items,
    and a coursed mosaic of work.
    ========================================================================== */
-.service .hero, .about .hero, .contact-page .hero { min-height: min(78svh, 700px); }
-.service .hero__content, .about .hero__content, .contact-page .hero__content { padding-bottom: clamp(44px, 5vw, 72px); }
+.service .hero, .about .hero { min-height: min(78svh, 700px); }
+.service .hero__content, .about .hero__content { padding-bottom: clamp(44px, 5vw, 72px); }
 @media (min-width: 761px) { .service .trust__list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 .svc-a { padding-block: clamp(24px, 3vw, 40px) var(--section); }
@@ -131,7 +131,7 @@
   .v3-gallery .svc-photo:nth-child(even) { translate: 0 32px; }
 }
 @media (max-width: 640px) {
-  .service .hero__content, .about .hero__content, .contact-page .hero__content { padding-top: 110px; }
+  .service .hero__content, .about .hero__content { padding-top: 110px; }
   .v3-hero .svc-btns, .v3-hero .svc-btns .btn, .svc-close .svc-btns, .svc-close .svc-btns .btn { width: 100%; }
   .wall { --row: 170px; gap: 10px; }
   .wall::after { display: none; }
@@ -160,3 +160,9 @@
 .policy__body li { margin-bottom: .4em; }
 .policy__body a { color: var(--deep); text-underline-offset: 4px; text-decoration-thickness: 1.5px; }
 @media (max-width: 860px) { .policy__sec { grid-template-columns: minmax(0, 1fr); } }
+
+/* About: the history list uses years where "How it works" uses step numbers */
+.steps--years li { grid-template-columns: clamp(92px, 9vw, 124px) minmax(0, 1fr); }
+.steps--years li::before { content: none; }
+.steps__year { grid-row: 1 / span 2; font: 500 var(--step-2)/1.15 var(--font-display); color: var(--hamstone-tint); letter-spacing: var(--h-ls); }
+@media (max-width: 560px) { .steps--years li { grid-template-columns: minmax(0, 1fr); } .steps__year { grid-row: auto; margin-bottom: 6px; } }
