@@ -128,14 +128,78 @@ GALLERY_ORDER = ['coursed-wall', 'stone-detail-iris', 'curved-wall-field', 'land
                  'signpost-wall', 'stone-walling-tall-lane-wall', 'stone-house-glazing', 'gravel-drive-wall', 'retaining-wall-curve', 'lawn-gate',
                  'wall-oak-gate-lane', 'stone-bridge']
 # (order chosen so the justified rows pack evenly: three photos per row at common desktop widths)
+ORIGINAL_GALLERY_ORDER = GALLERY_ORDER.copy()
+
+# Photos supplied by Patrick in October 2026. The tuple order is the original WhatsApp send order,
+# so photographs of the same job remain together in galleries even after descriptive renaming.
+PATRICK_PHOTOS = [
+    ('stone-steps-iron-handrail-courtyard', 1200, 1600, 'Stone steps with a black iron handrail between traditional stone walls'),
+    ('stone-garage-wall-iron-railing', 1600, 1200, 'A stone garage wall finished with a black iron railing'),
+    ('restored-barn-stone-interior', 1600, 1200, 'The stone interior of a restored barn with a newly laid floor'),
+    ('roadside-wall-yenstone-sign', 1204, 1600, 'A long pale stone wall beside a country lane and a Yenstone sign'),
+    ('coursed-stone-boundary-wall', 1600, 1204, 'A newly built coursed stone boundary wall with upright coping stones'),
+    ('cobbled-courtyard-broad-steps', 1600, 1200, 'A cobbled courtyard leading to broad stone garden steps'),
+    ('lime-mortar-pointed-stone-wall', 1600, 1200, 'An older stone wall restored with traditional lime mortar pointing'),
+    ('stone-steps-split-retaining-walls', 1600, 1200, 'Stone garden steps between curved stone retaining walls'),
+    ('curved-stone-garden-seat', 1600, 1200, 'A curved stone garden seat built into a lawn'),
+    ('covered-cobbled-courtyard', 1600, 1205, 'A newly laid cobbled courtyard beneath a timber canopy'),
+    ('sandstone-patio-country-view', 1204, 1600, 'A sandstone patio overlooking a garden and open countryside'),
+    ('stone-retaining-wall-built-in-steps', 1600, 1200, 'A stone retaining wall with steps built into the corner'),
+    ('sandstone-terrace-low-walls', 1600, 1205, 'A broad sandstone terrace edged by low stone walls'),
+    ('stone-cottage-sandstone-terrace', 1205, 1600, 'A sandstone terrace and stone walls outside a traditional cottage'),
+    ('garden-groundworks-loader', 1600, 1200, 'A compact loader removing material during garden groundworks'),
+    ('curved-garden-groundworks', 1600, 1200, 'Ground prepared for a curved landscaped garden feature'),
+    ('curved-dry-stone-drive-wall', 1600, 1205, 'A curved dry stone wall beside a gravel drive'),
+    ('dry-stone-wall-under-construction', 900, 1600, 'A dry stone wall under construction showing the hand-built courses'),
+    ('paved-driveway-stone-gateway', 1600, 1200, 'A newly surfaced drive framed by stone walls and gate piers'),
+    ('village-road-dry-stone-boundary-wall', 1600, 1200, 'A dry stone boundary wall following a village road'),
+    ('driveway-groundworks-roller', 1600, 1200, 'A ride-on roller compacting the base of a new drive'),
+    ('sandstone-patio-curved-steps', 1600, 1200, 'A sandstone patio with curved steps and a low stone border'),
+    ('circular-sandstone-patio', 1600, 1200, 'A circular sandstone patio enclosed by a curved stone border'),
+    ('sandstone-patio-raised-border', 1200, 1600, 'A sandstone patio beside a raised curved stone planting bed'),
+    ('sandstone-patio-garden-steps', 1200, 1600, 'A sandstone patio leading to garden steps and a raised terrace'),
+    ('landscaped-garden-terrace-steps', 1600, 1200, 'A landscaped garden with a sandstone terrace and broad steps'),
+    ('stone-edged-raised-garden', 1600, 1204, 'A raised garden area edged with natural stone'),
+    ('dry-stone-wall-gravel-path', 1600, 1204, 'A dry stone garden wall running beside a gravel path'),
+    ('roadside-coursed-stone-wall', 1600, 1200, 'A finished coursed stone wall beside a narrow country road'),
+    ('curving-retaining-wall-planted-slope', 1600, 1201, 'A curving stone retaining wall around a newly planted slope'),
+    ('landscaped-cottage-garden-stone-edging', 1600, 1201, 'A cottage garden shaped with flowing natural stone edging'),
+    ('terraced-garden-stone-steps-wide', 1201, 1600, 'A wide view of stone steps rising through a terraced garden'),
+    ('circular-stone-terrace-cottage', 1202, 1600, 'A circular stone terrace in front of a traditional cottage'),
+    ('circular-sandstone-terrace-retaining-wall', 1600, 1202, 'A circular sandstone terrace enclosed by a curved stone retaining wall'),
+    ('landscaped-cottage-garden-paths', 1600, 1201, 'A landscaped cottage garden with curved paths and stone-edged beds'),
+    ('terraced-stone-garden-steps', 1202, 1600, 'Stone steps rising between retaining walls in a terraced garden'),
+    ('landscaped-cottage-garden-overview', 1201, 1600, 'An overview of a landscaped cottage garden with flowing stone borders'),
+    ('curved-dry-stone-garden-wall-plants', 1201, 1600, 'A curved dry stone garden wall surrounded by established planting'),
+    ('winding-stone-edged-garden-path', 1600, 1201, 'A winding garden path defined by low natural stone edging'),
+    ('long-new-dry-stone-boundary-wall', 1600, 1204, 'A long newly built dry stone boundary wall beneath mature trees'),
+    ('curved-new-dry-stone-boundary-wall', 1600, 1204, 'A new dry stone boundary wall curving around a large tree'),
+    ('dry-stone-boundary-wall-shaded', 1204, 1600, 'A close view along a new dry stone boundary wall in dappled shade'),
+    ('sandstone-steps-iron-handrail', 1200, 1600, 'Sandstone steps with an iron handrail between stone garden walls'),
+    ('raised-sandstone-terrace', 1600, 1200, 'A raised sandstone terrace built above a dry stone retaining wall'),
+    ('narrow-sandstone-steps-stone-walls', 1200, 1600, 'Narrow sandstone steps descending between stone walls'),
+    ('sandstone-steps-iron-railings', 1200, 1600, 'Sandstone garden steps fitted with black iron railings'),
+    ('hillside-sandstone-terrace', 1600, 1200, 'A sandstone terrace overlooking a sloping country garden'),
+    ('paved-side-passage', 1200, 1600, 'A narrow side passage newly paved in natural stone'),
+    ('sandstone-courtyard-glazed-extension', 1600, 1200, 'A sandstone courtyard beside a glazed garden extension'),
+    ('lime-mortar-pointing-barn-wall', 1204, 1600, 'Traditional lime mortar pointing on an internal barn wall'),
+]
+PATRICK_SEQUENCE = [
+    1, 2, 4, 5, 6, 7, 8, 10, 11, 12, 13, 15, 18, 19, 21, 22, 23, 24, 25, 26, 27,
+    28, 29, 30, 32, 33, 35, 36, 37, 38, 39, 40, 42, 43, 44, 45, 46, 49, 51, 61, 63,
+    64, 68, 70, 74, 75, 77, 81, 82, 94,
+]
+assert len(PATRICK_SEQUENCE) == len(PATRICK_PHOTOS)
+PATRICK_SOURCE_SEQUENCE = dict(zip((name for name, _, _, _ in PATRICK_PHOTOS), PATRICK_SEQUENCE))
+PHOTOS.update({name: (width, height, alt) for name, width, height, alt in PATRICK_PHOTOS})
+GALLERY_ORDER = [name for name, _, _, _ in PATRICK_PHOTOS] + GALLERY_ORDER
 
 # ------------------------------------------------------------------ service copy
 EST = ('Established in 1991', 'Over thirty years of landscaping and building in stone across Somerset and Dorset.')
 LOCAL = ('Local stone first', 'We match the stone of your house and your lane wherever we can.')
 QUOTES = ('Written quotes', 'The work and the price set out clearly before we start.')
 
-# Order here is the order of the homepage cards and the Services dropdown:
-# landscaping leads, dry stone walling second, then the rest.
+# The list controls build order. Navigation order is inherited from the homepage header.
 SERVICES = [
     dict(
         slug='landscaping-somerset', name='Landscaping',
@@ -157,7 +221,8 @@ SERVICES = [
         ],
         close='Not sure where to start? Call us. We will come and look at the garden, talk through what you want and explain how we would approach it.',
         w_p='Recent work in Somerset and Dorset. Select a photo to see it larger.',
-        photos=['stone-bridge', 'landscaping-brick-path-flower-borders', 'pond-wall-bench', 'lawn-gate', 'orchard-garden-wall', 'retaining-wall-curve', 'pond-garden-wall', 'terraced-patio-walls'],
+        photos=['stone-bridge', 'landscaping-brick-path-flower-borders', 'pond-wall-bench', 'lawn-gate', 'orchard-garden-wall', 'retaining-wall-curve', 'pond-garden-wall', 'terraced-patio-walls',
+                'landscaped-garden-terrace-steps', 'stone-edged-raised-garden', 'curving-retaining-wall-planted-slope', 'landscaped-cottage-garden-stone-edging', 'terraced-garden-stone-steps-wide', 'circular-stone-terrace-cottage', 'landscaped-cottage-garden-paths', 'landscaped-cottage-garden-overview'],
     ),
     dict(
         slug='dry-stone-walling-somerset', name='Dry stone walling',
@@ -178,7 +243,29 @@ SERVICES = [
         ],
         close='Not sure what your wall needs? Call us. We will come and look, talk through the options and send you a written quote.',
         w_p='Walls we have built in Somerset and Dorset. Select a photo to see it larger.',
-        photos=['tree-relief-pool', 'stone-walling-flower-border-wall', 'stone-walling-gated-lane-wall', 'stone-walling-new-boundary-wall', 'wall-lane', 'stone-walling-tall-lane-wall', 'curved-wall-field', 'stone-cottage-boundary-wall'],
+        photos=['tree-relief-pool', 'stone-walling-flower-border-wall', 'stone-walling-gated-lane-wall', 'stone-walling-new-boundary-wall', 'wall-lane', 'stone-walling-tall-lane-wall', 'curved-wall-field', 'stone-cottage-boundary-wall',
+                'roadside-wall-yenstone-sign', 'coursed-stone-boundary-wall', 'curved-dry-stone-drive-wall', 'dry-stone-wall-under-construction', 'paved-driveway-stone-gateway', 'village-road-dry-stone-boundary-wall', 'long-new-dry-stone-boundary-wall', 'curved-new-dry-stone-boundary-wall'],
+    ),
+    dict(
+        slug='lime-mortar-pointing-somerset', name='Lime mortar pointing',
+        desc='Lime mortar pointing in Somerset and Dorset from Yenstone: breathable repointing for older stone houses, barns, walls and traditional masonry. Call 01963 371123.',
+        standfirst='Breathable lime mortar pointing for older stone houses, barns, walls and traditional masonry.',
+        hero=('lime-mortar-pointed-stone-wall', 1600, 1200, 'An older stone wall restored with traditional lime mortar pointing'),
+        facts=[EST, ('Right for older buildings', 'Breathable lime mortar helps traditional solid walls manage moisture naturally.'), LOCAL],
+        a_h='Pointing that lets old stone breathe',
+        a_p1='Many older stone buildings were built with lime mortar. Unlike hard modern cement, lime remains slightly flexible and allows moisture to leave through the joints instead of being trapped in the wall.',
+        a_p2='We remove failed or unsuitable pointing carefully, prepare the joints and repoint them with a lime mortar chosen to suit the stone and the building. The finish protects the masonry while keeping the character of the original work.',
+        b_h='What we point and restore',
+        b_intro='We start by looking at the stone, the existing joints and the condition of the wall, then agree the mortar and finish before work begins.',
+        items=[
+            ('Older stone houses', 'Repointing traditional solid walls with a breathable lime mortar that is compatible with the original construction.'),
+            ('Barns and outbuildings', 'External and internal stonework repaired and repointed while retaining its agricultural character.'),
+            ('Garden and boundary walls', 'Weathered joints renewed to protect the wall and bring definition back to the stonework.'),
+            ('Removing unsuitable cement', 'Hard or failing cement pointing carefully removed where practical and replaced with a more appropriate lime mortar.'),
+        ],
+        close='Not sure whether your stonework needs lime mortar? Call us. We will look at the wall, explain what it needs and send you a written quote.',
+        w_p='Examples of our lime mortar pointing. Select a photo to see it larger.',
+        photos=['lime-mortar-pointed-stone-wall', 'lime-mortar-pointing-barn-wall'],
     ),
     dict(
         slug='steps-and-terraces-somerset', name='Steps and terraces',
@@ -199,7 +286,8 @@ SERVICES = [
         ],
         close='Got a slope that needs sorting? Call us. We will come and look, talk through the options and send you a written quote.',
         w_p='Recent work in Somerset and Dorset. Select a photo to see it larger.',
-        photos=['terraced-stone-steps', 'formal-garden-steps', 'broad-steps', 'wall-steps-deer', 'retaining-wall-rose', 'terraced-patio-walls'],
+        photos=['terraced-stone-steps', 'formal-garden-steps', 'broad-steps', 'wall-steps-deer', 'retaining-wall-rose', 'terraced-patio-walls',
+                'stone-steps-iron-handrail-courtyard', 'stone-steps-split-retaining-walls', 'stone-retaining-wall-built-in-steps', 'terraced-garden-stone-steps-wide', 'terraced-stone-garden-steps', 'sandstone-steps-iron-handrail', 'narrow-sandstone-steps-stone-walls', 'sandstone-steps-iron-railings'],
     ),
     dict(
         slug='paving-and-patios-somerset', name='Paving and patios',
@@ -220,7 +308,8 @@ SERVICES = [
         ],
         close='Thinking about a patio or drive? Call us. We will visit, measure up and send you a written quote.',
         w_p='Recent work in Somerset and Dorset. Select a photo to see it larger.',
-        photos=['sandstone-patio-dining', 'rustic-stone-terrace', 'stone-flag-doorway', 'paved-courtyard-white-house', 'stone-paved-passage', 'oak-gate-paving', 'gravel-drive-wall', 'stone-house-glazing'],
+        photos=['sandstone-patio-dining', 'rustic-stone-terrace', 'stone-flag-doorway', 'paved-courtyard-white-house', 'stone-paved-passage', 'oak-gate-paving', 'gravel-drive-wall', 'stone-house-glazing',
+                'cobbled-courtyard-broad-steps', 'covered-cobbled-courtyard', 'sandstone-patio-country-view', 'sandstone-terrace-low-walls', 'stone-cottage-sandstone-terrace', 'sandstone-patio-curved-steps', 'circular-sandstone-patio', 'sandstone-patio-raised-border'],
     ),
     dict(
         slug='groundworks-somerset', name='Groundworks',
@@ -242,7 +331,7 @@ SERVICES = [
         ],
         close='Need the ground sorting first? Call us. We will come and look and send you a written quote.',
         w_p='Groundworks in progress. Select a photo to see it larger.',
-        photos=['dumper-garden-work', 'excavator-retaining-wall'],
+        photos=['dumper-garden-work', 'excavator-retaining-wall', 'garden-groundworks-loader', 'curved-garden-groundworks', 'driveway-groundworks-roller'],
     ),
     dict(
         slug='septic-tanks-somerset', name='Septic tanks',
@@ -286,7 +375,8 @@ SERVICES = [
         ],
         close='Have a piece in mind? Call us. We will talk through what you want and send you a written quote.',
         w_p='Ironwork we have made and fitted. Select a photo to see it larger.',
-        photos=['spear-top-house-railings', 'leaf-motif-garden-gate', 'wrought-iron-railing-welding', 'bridge-railing-clematis', 'brick-footbridge-railings'],
+        photos=['spear-top-house-railings', 'leaf-motif-garden-gate', 'wrought-iron-railing-welding', 'bridge-railing-clematis', 'brick-footbridge-railings',
+                'stone-steps-iron-handrail-courtyard', 'stone-garage-wall-iron-railing', 'narrow-sandstone-steps-stone-walls', 'sandstone-steps-iron-railings'],
     ),
     dict(
         slug='stone-cladding-somerset', name='Stone cladding',
@@ -402,16 +492,23 @@ def service_page(s):
     p = '../'
     confirm = f'    <!-- CONFIRM with client: {s["confirm"]} -->\n' if s.get('confirm') else '    <!-- CONFIRM with client: copy is drafted from the facts on the homepage; check before launch -->\n'
     facts = '\n        '.join(f'<li><strong>{a}</strong><span>{b}</span></li>' for a, b in s['facts'])
-    # The mosaic is laid out for 5, 6 or 8 tiles. Real photos come first; any gap is filled with plain placeholders,
-    # so a page with no photos yet already looks like it will once they arrive.
+    # Keep every supplied photo. Longer galleries are split into stacked mosaics of up to eight
+    # so the established composition and one shared lightbox continue to work at any length.
     photos = s.get('photos') or []
-    total = len(photos) if len(photos) in (5, 6, 8) else (8 if len(photos) > 6 else 6)
-    mod = ' svc-mosaic--5' if total == 5 else ''
-    tiles = photo_buttons(photos, p).split('\n          ') if photos else []
-    tiles += [PLACEHOLDER] * (total - len(photos))
-    swap = '<!-- SWAP: real photos of this work, replace each placeholder with a photo button (see the others) -->\n        ' if len(photos) < total else ''
-    gdata = ' data-gallery' if photos else ''
-    gallery = swap + f'<div class="svc-mosaic{mod}"{gdata} data-stagger>\n          ' + '\n          '.join(tiles) + '\n        </div>'
+    if photos:
+        mosaics = []
+        for start in range(0, len(photos), 8):
+            batch = photos[start:start + 8]
+            mod = f' svc-mosaic--{len(batch)}' if len(batch) in (2, 4, 5) else ''
+            mosaics.append(
+                f'<div class="svc-mosaic{mod}" data-stagger>\n          '
+                + photo_buttons(batch, p)
+                + '\n        </div>'
+            )
+        gallery = '<div class="svc-gallery-stacks" data-gallery>\n        ' + '\n        '.join(mosaics) + '\n        </div>'
+    else:
+        gallery = '<!-- SWAP: real photos of this work, replace each placeholder with a photo button (see the others) -->\n        '
+        gallery += '<div class="svc-mosaic" data-stagger>\n          ' + '\n          '.join([PLACEHOLDER] * 6) + '\n        </div>'
     title = f'{s["name"]} in Somerset and Dorset'
     main = f'''{confirm}{photo_hero(p, s['hero'], title, s['standfirst'])}
     <section class="trust" aria-label="About our work">
@@ -471,7 +568,7 @@ FAQ_ABOUT = ('A little more about who we are and how we work. If yours is not he
     ('How long have you been trading?', 'Since 1991. We began with dry stone walling and have built on that ever since.'),
     ('Where are you based?', 'At Perhams Farm in Yenston, just outside Templecombe. We work across Somerset and Dorset.'),
     ('Are you qualified?', 'Yes. Patrick is a certified dry stone waller, and Yenstone is a member of the Dry Stone Walling Association.'),
-    ('What do you do?', 'Landscaping and dry stone walling, including steps and terraces, paving and patios, and groundworks. We also do septic tank installation, bespoke ironmongery and stone cladding.'),
+    ('What do you do?', 'Landscaping and dry stone walling, including lime mortar pointing, steps and terraces, paving and patios, and groundworks. We also do septic tank installation, bespoke ironmongery and stone cladding.'),
     ('Do you use local stone?', 'Wherever we can. We match the stone of your house and your lane, so new work sits naturally beside the old.'),
     ('Do you do insurance work?', 'Yes, we do insurance work on walls. Tell us what happened and we will explain what is involved and give you a quote you can pass to your insurer.'),
 ])
@@ -790,7 +887,7 @@ def version3_page():
           <p data-anim="settle">{s['w_p']}</p>
         </div>
         <div class="v3-gallery" data-gallery data-stagger>
-          {photo_buttons(GALLERY_ORDER[:8], p)}
+          {photo_buttons(ORIGINAL_GALLERY_ORDER[:8], p)}
         </div>
       </div>
     </section>

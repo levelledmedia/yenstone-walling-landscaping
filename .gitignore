@@ -5,6 +5,11 @@
 # macOS
 .DS_Store
 
+# Local media review workspace and generated Python cache
+patrick-media-review/
+__pycache__/
+*.py[cod]
+
 # Vendored agent skills (restorable from skills-lock.json)
 .agents/
 .claude/skills/
