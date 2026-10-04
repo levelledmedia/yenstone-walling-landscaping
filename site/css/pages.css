@@ -79,6 +79,7 @@
 .wall-section { padding-block: var(--section); }
 .wall { --row: clamp(170px, 19vw, 280px); display: flex; flex-wrap: wrap; gap: 14px; }
 .wall::after { content: ""; flex-grow: 1000; }
+.wall.wall--more::after { display: none; } /* more photos are waiting, so the last row fills the width */
 .wall__item { margin: 0; flex: calc(var(--ar) * 100) 1 calc(var(--ar) * var(--row)); min-width: 0; }
 .wall__item .svc-photo { height: auto; aspect-ratio: var(--ar); }
 /* photos fade in as they arrive, so lazy loading never pops */

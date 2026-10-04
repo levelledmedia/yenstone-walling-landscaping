@@ -381,7 +381,8 @@
         lastRow.forEach((li) => li.remove());
         held.unshift(...lastRow);
       };
-      const update = () => { more.hidden = !held.length; };
+      // While more photos are waiting, every visible row (including the last) stretches to full width, so a row never grows when more arrive
+      const update = () => { more.hidden = !held.length; wall.classList.toggle('wall--more', held.length > 0); };
       holdBackLastRow();
       update();
       btn.addEventListener('click', () => {
