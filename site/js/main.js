@@ -356,7 +356,10 @@
   $$('.wall img').forEach(watchWall);
 
   /* "Show more": the first batch is in the page; later batches sit in <template data-wall-batch> elements,
-     which the browser neither renders nor downloads until we clone one in here. */
+     which the browser neither renders nor downloads until we clone one in here.
+     The wall is a justified grid, so a fixed batch size rarely ends on a full row. Photos are therefore added
+     a batch at a time and any that land on an unfinished last row are held back for the next click. The very
+     last photos are always shown, so the final row may be short. */
   const wall = $('.wall');
   const more = $('.wall__more');
   if (wall && more) {
@@ -364,18 +367,37 @@
     const btn = $('button', more);
     const status = $('.wall__status', more);
     if (batches.length) {
-      more.hidden = false;
+      const BATCH = 12;
+      const held = [];
+      batches.forEach((t) => { held.push(...Array.from(t.content.cloneNode(true).children)); t.remove(); });
+      const top = (li) => Math.round(li.offsetTop);
+      // Moves the items on the last (unfinished) row back to the front of the held list.
+      const holdBackLastRow = () => {
+        const items = $$('.wall__item', wall);
+        if (!items.length) return;
+        const lastTop = top(items[items.length - 1]);
+        const lastRow = items.filter((li) => top(li) === lastTop);
+        if (lastRow.length === items.length) return; // everything is on one row: nothing sensible to hold back
+        lastRow.forEach((li) => li.remove());
+        held.unshift(...lastRow);
+      };
+      const update = () => { more.hidden = !held.length; };
+      holdBackLastRow();
+      update();
       btn.addEventListener('click', () => {
-        const batch = batches.shift();
-        const items = Array.from(batch.content.cloneNode(true).children);
-        items.forEach((li) => wall.appendChild(li));
-        items.forEach((li) => $$('img', li).forEach(watchWall));
+        const added = held.splice(0, BATCH);
+        added.forEach((li) => wall.appendChild(li));
+        if (held.length) holdBackLastRow();
+        const shown = added.filter((li) => li.parentNode === wall);
+        shown.forEach((li) => $$('img', li).forEach(watchWall));
         refreshGallery();
-        batch.remove();
-        status.textContent = `${items.length} more photos added.`; // read out by screen readers only
-        if (items[0]) $('button', items[0]).focus({ preventScroll: true });
-        if (!batches.length) { more.hidden = true; }
+        status.textContent = `${shown.length} more photos added.`; // read out by screen readers only
+        if (shown[0]) $('button', shown[0]).focus({ preventScroll: true });
+        update();
       });
+      // If the window is resized the rows re-flow, so tidy the last row again (only ever holds photos back)
+      let t;
+      window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => { if (held.length) { holdBackLastRow(); update(); refreshGallery(); } }, 200); });
     }
   }
 
