@@ -443,7 +443,7 @@
   const form = $('#quote-form');
   const done = $('#form-done');
   if (form) {
-    /* TEMPORARY, until the client approves the design: with no data-endpoint the form is not live.
+    /* TEMPORARY, until the real form handler is connected: with no data-endpoint the form is not live.
        Fields are read-only and a notice says why. Delete this block (or set data-endpoint) to switch it on. */
     const live = Boolean(form.dataset.endpoint);
     let showNotice = () => {};
@@ -452,7 +452,7 @@
       note.className = 'form__notice';
       note.setAttribute('role', 'status');
       note.hidden = true;
-      note.textContent = 'This form is not active yet. It is waiting for design approval, so nothing you type here will be sent.';
+      note.textContent = 'This form is not active yet. Please call us on 01963 371123 or email info@yenstonewalling.co.uk.';
       $('h3', form).after(note);
       $$('input:not([name="website"]), textarea', form).forEach((f) => { f.readOnly = true; });
       showNotice = () => { note.hidden = false; };
