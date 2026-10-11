@@ -2,7 +2,7 @@
 """
 Builds the inner pages of the Yenstone site from the homepage.
 
-  services/*.html              the eight service pages (one shared design)
+  <slug>.html                  the eight service pages (one shared design), served at /<slug>
   about.html                   About us
   our-work.html                Our work (photo wall)
   contact.html                 Contact
@@ -23,6 +23,18 @@ import re
 SITE = pathlib.Path(__file__).resolve().parent.parent / 'site'
 home = (SITE / 'index.html').read_text()
 
+SITE_URL = 'https://www.yenstonewalling.co.uk'
+
+
+def redirect_stub(target):
+    return f'''<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><title>Moved</title>
+<link rel="canonical" href="{SITE_URL}{target}">
+<meta http-equiv="refresh" content="0; url={target}">
+</head><body><p>This page has moved to <a href="{target}">{SITE_URL}{target}</a>.</p></body></html>
+'''
+
+
 PLACEHOLDER = '<div class="ph" data-anim="settle"><span>Photo coming soon</span></div>'
 PHONE = '<svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>'
 
@@ -36,7 +48,7 @@ def rel(s, p):
     """Re-point relative page links and assets at the right folder depth (p is '' or '../')."""
     if not p:
         return s
-    s = re.sub(r'href="(?!#|tel:|mailto:|https?:|\.\./)([^"]+)"', lambda m: f'href="{p}{m.group(1)}"', s)
+    s = re.sub(r'href="(?!#|/|tel:|mailto:|https?:|\.\./)([^"]+)"', lambda m: f'href="{p}{m.group(1)}"', s)
     return s.replace('src="assets/', f'src="{p}assets/')
 
 
@@ -51,15 +63,15 @@ MAPS = 'https://www.google.com/maps/search/?api=1&amp;query=Perhams+Farm,+Sally+
 
 
 def header_for(p, current=None, slug=None):
-    h = HEADER.replace('<a href="index.html" aria-current="page">Home</a>', '<a href="index.html">Home</a>')
-    marks = {'home': 'index.html', 'about': 'about.html', 'work': 'our-work.html', 'contact': 'contact.html'}
+    h = HEADER.replace('<a href="/" aria-current="page">Home</a>', '<a href="/">Home</a>')
+    marks = {'home': '/', 'about': '/about', 'work': '/our-work', 'contact': '/contact'}
     if current == 'services':
         h = h.replace('<button class="nav__toggle"', '<button class="nav__toggle" aria-current="page"').replace('<button class="menu__toggle"', '<button class="menu__toggle" aria-current="page"')
     if current in marks and current != 'home':
         href = marks[current]
         h = re.sub(rf'<a href="{re.escape(href)}">', f'<a href="{href}" aria-current="page">', h)
     if slug:
-        h = h.replace(f'<a href="services/{slug}.html">', f'<a href="services/{slug}.html" aria-current="page">')
+        h = h.replace(f'<a href="/{slug}">', f'<a href="/{slug}" aria-current="page">')
     return rel(h, p)
 
 
@@ -443,6 +455,8 @@ def title_case(s):
 
 def shell(p, title, desc, body_class, main, current, slug=None, noindex=False, quote=True):
     robots = '\n  <meta name="robots" content="noindex">' if noindex else ''
+    path = {'about': 'about', 'work': 'our-work', 'contact': 'contact', 'policy': 'privacy-policy'}.get(current) if current != 'services' else slug
+    canonical = '' if noindex else f'<link rel="canonical" href="{SITE_URL}/{path}">'
     return f'''<!doctype html>
 <html lang="en-GB">
 <head>
@@ -450,7 +464,7 @@ def shell(p, title, desc, body_class, main, current, slug=None, noindex=False, q
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{title}</title>
   <meta name="description" content="{desc}">
-  <!-- CONFIRM: add the canonical URL once the final domain is set -->{robots}
+  {canonical}{robots}
   <meta name="theme-color" content="#2B1F1A">
   <link rel="icon" href="{p}favicon.ico" sizes="48x48">
   <link rel="icon" type="image/png" href="{p}favicon-32.png" sizes="32x32">
@@ -498,7 +512,7 @@ def photo_hero(p, hero, h1, lede):
 
 # ------------------------------------------------------------------ service page
 def service_page(s):
-    p = '../'
+    p = ''
     confirm = f'    <!-- CONFIRM with client: {s["confirm"]} -->\n' if s.get('confirm') else '    <!-- CONFIRM with client: copy is drafted from the facts on the homepage; check before launch -->\n'
     facts = '\n        '.join(f'<li><strong>{a}</strong><span>{b}</span></li>' for a, b in s['facts'])
     # Keep every supplied photo. Longer galleries are split into stacked mosaics of up to eight
@@ -908,8 +922,11 @@ def version3_page():
 (SITE / 'services').mkdir(exist_ok=True)
 (SITE / 'service-versions').mkdir(exist_ok=True)
 for s in SERVICES:
-    (SITE / 'services' / f'{s["slug"]}.html').write_text(service_page(s))
-    print('wrote services/' + s['slug'] + '.html')
+    (SITE / f'{s["slug"]}.html').write_text(service_page(s))
+    print('wrote ' + s['slug'] + '.html')
+    # Old /services/<slug>.html address: stub that points search engines and visitors at the clean URL
+    (SITE / 'services').mkdir(exist_ok=True)
+    (SITE / 'services' / f'{s["slug"]}.html').write_text(redirect_stub('/' + s['slug']))
 (SITE / 'about.html').write_text(about_page()); print('wrote about.html')
 (SITE / 'our-work.html').write_text(work_page()); print('wrote our-work.html')
 (SITE / 'contact.html').write_text(contact_page()); print('wrote contact.html')
