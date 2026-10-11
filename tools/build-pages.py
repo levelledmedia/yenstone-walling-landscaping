@@ -214,7 +214,7 @@ QUOTES = ('Written quotes', 'The work and the price set out clearly before we st
 # The list controls build order. Navigation order is inherited from the homepage header.
 SERVICES = [
     dict(
-        slug='landscaping-somerset', name='Landscaping',
+        slug='landscaping', name='Landscaping',
         desc='Landscaping in Somerset, Dorset and Wiltshire from Yenstone: hard landscaping, garden features, outdoor improvements and bespoke projects. Call 01963 371123 for a free quote.',
         confirm='garden features and bespoke project examples are inferred from the client\'s one-line description and photos; confirm',
         standfirst='Hard landscaping, garden features, outdoor improvements and bespoke projects, planned and built as one.',
@@ -237,7 +237,7 @@ SERVICES = [
                 'landscaped-garden-terrace-steps', 'stone-edged-raised-garden', 'curving-retaining-wall-planted-slope', 'landscaped-cottage-garden-stone-edging', 'terraced-garden-stone-steps-wide', 'circular-stone-terrace-cottage', 'landscaped-cottage-garden-paths', 'landscaped-cottage-garden-overview'],
     ),
     dict(
-        slug='dry-stone-walling-somerset', name='Dry stone walling',
+        slug='dry-stone-walling', name='Dry stone walling',
         desc='Dry stone walling in Somerset, Dorset and Wiltshire from Yenstone: boundary and retaining walls, repairs and restoration, built by a certified waller. Call 01963 371123.',
         standfirst='Traditional dry stone walls, including boundary walls, retaining walls, repairs and restoration, built by hand in local stone.',
         hero=('curved-wall-field-cinematic', 1639, 960, 'A long curved dry stone wall across a field'),
@@ -259,7 +259,7 @@ SERVICES = [
                 'roadside-wall-yenstone-sign', 'coursed-stone-boundary-wall', 'curved-dry-stone-drive-wall', 'dry-stone-wall-under-construction', 'paved-driveway-stone-gateway', 'village-road-dry-stone-boundary-wall', 'long-new-dry-stone-boundary-wall', 'curved-new-dry-stone-boundary-wall'],
     ),
     dict(
-        slug='lime-mortar-pointing-somerset', name='Lime mortar pointing',
+        slug='lime-mortar-pointing', name='Lime mortar pointing',
         desc='Lime mortar pointing in Somerset, Dorset and Wiltshire from Yenstone: breathable repointing for older stone houses, barns, walls and traditional masonry. Call 01963 371123.',
         standfirst='Breathable lime mortar pointing for older stone houses, barns, walls and traditional masonry.',
         hero=('lime-mortar-pointed-stone-wall', 1600, 1200, 'An older stone wall restored with traditional lime mortar pointing'),
@@ -280,7 +280,7 @@ SERVICES = [
         photos=['lime-mortar-pointed-stone-wall', 'lime-mortar-pointing-barn-wall'],
     ),
     dict(
-        slug='steps-and-terraces-somerset', name='Steps and terraces',
+        slug='steps-and-terraces', name='Steps and terraces',
         desc='Steps and terraces in Somerset, Dorset and Wiltshire from Yenstone: bespoke stone steps, terracing and raised landscape features designed to suit the surrounding garden. Call 01963 371123.',
         standfirst='Bespoke stone steps, terracing and raised landscape features designed to suit the surrounding garden.',
         hero=('formal-garden-steps-cinematic', 1638, 960, 'Broad stone steps rising between clipped lawns and low stone walls'),
@@ -302,7 +302,7 @@ SERVICES = [
                 'stone-steps-iron-handrail-courtyard', 'stone-steps-split-retaining-walls', 'stone-retaining-wall-built-in-steps', 'terraced-garden-stone-steps-wide', 'terraced-stone-garden-steps', 'sandstone-steps-iron-handrail', 'narrow-sandstone-steps-stone-walls', 'sandstone-steps-iron-railings'],
     ),
     dict(
-        slug='paving-and-patios-somerset', name='Paving and patios',
+        slug='paving-and-patios', name='Paving and patios',
         desc='Paving and patios in Somerset, Dorset and Wiltshire from Yenstone: patios, paths and paved areas in durable stone finishes for gardens and outdoor spaces. Call 01963 371123.',
         standfirst='Patios, paths and paved areas using durable stone finishes for gardens and outdoor spaces.',
         hero=('hero-paving-rustic-stone-terrace', 1672, 941, 'A broad rustic stone terrace beside a traditional stone cottage'),
@@ -324,7 +324,7 @@ SERVICES = [
                 'cobbled-courtyard-broad-steps', 'covered-cobbled-courtyard', 'sandstone-patio-country-view', 'sandstone-terrace-low-walls', 'stone-cottage-sandstone-terrace', 'sandstone-patio-curved-steps', 'circular-sandstone-patio', 'sandstone-patio-raised-border'],
     ),
     dict(
-        slug='groundworks-somerset', name='Groundworks',
+        slug='groundworks', name='Groundworks',
         desc='Groundworks in Somerset, Dorset and Wiltshire from Yenstone: site preparation, excavation, foundations and associated groundwork for landscaping and construction projects. Call 01963 371123.',
         confirm='scope of groundworks (excavation, foundations, drives, drainage) is inferred; confirm with the client',
         standfirst='Site preparation, excavation, foundations and associated groundwork for landscaping and construction projects.',
@@ -346,7 +346,7 @@ SERVICES = [
         photos=['dumper-garden-work', 'excavator-retaining-wall', 'garden-groundworks-loader', 'curved-garden-groundworks', 'driveway-groundworks-roller'],
     ),
     dict(
-        slug='septic-tanks-somerset', name='Septic tanks',
+        slug='septic-tanks', name='Septic tanks',
         desc='Septic tanks in Somerset, Dorset and Wiltshire from Yenstone: installation, including the excavation, groundworks and drainage the system needs. Call 01963 371123 for a free quote.',
         confirm='scope of septic tank and drainage work, and any regulations to mention; confirm with the client. Real photos needed (see SHOT-LIST.md)',
         standfirst='Septic tank installation, including associated excavation, groundworks and drainage requirements.',
@@ -368,7 +368,7 @@ SERVICES = [
         photos=None,
     ),
     dict(
-        slug='bespoke-ironmongery-somerset', name='Bespoke ironmongery',
+        slug='bespoke-ironmongery', name='Bespoke ironmongery',
         desc='Bespoke ironmongery in Somerset, Dorset and Wiltshire from Yenstone: custom-made ironwork and metal features for gardens, gates, landscaping and stonework. Call 01963 371123.',
         confirm='scope of ironmongery is inferred from the client\'s one-line description; confirm what they make.',
         standfirst='Custom-made ironwork and metal features designed to complement gardens, gates, landscaping and stonework.',
@@ -391,7 +391,7 @@ SERVICES = [
                 'stone-steps-iron-handrail-courtyard', 'stone-garage-wall-iron-railing', 'narrow-sandstone-steps-stone-walls', 'sandstone-steps-iron-railings'],
     ),
     dict(
-        slug='stone-cladding-somerset', name='Stone cladding',
+        slug='stone-cladding', name='Stone cladding',
         desc='Stone cladding in Somerset, Dorset and Wiltshire from Yenstone: traditional and contemporary stone cladding of existing buildings and structures, including lime and mortared walling. Call 01963 371123 for a free quote.',
         confirm='scope of cladding is inferred from the client\'s one-line description; confirm. SWAP: hero is a stand-in texture, use a real cladding photo (SHOT-LIST.md)',
         standfirst='Traditional and contemporary stone cladding of existing buildings and structures, including lime and mortared walling.',
@@ -852,7 +852,7 @@ def policy_page():
 # ------------------------------------------------------------------ kept layout: version 3 (dry stone walling copy)
 def version3_page():
     p = '../'
-    s = next(x for x in SERVICES if x['slug'] == 'dry-stone-walling-somerset')
+    s = next(x for x in SERVICES if x['slug'] == 'dry-stone-walling')
     facts = '\n          '.join(f'<li data-anim="settle"><strong>{a}</strong><span>{b}</span></li>' for a, b in s['facts'])
     main = f'''    <!-- HERO -->
     <section class="v3-hero svc-hero on-dark" aria-labelledby="hero-title">
@@ -925,8 +925,11 @@ for s in SERVICES:
     (SITE / f'{s["slug"]}.html').write_text(service_page(s))
     print('wrote ' + s['slug'] + '.html')
     # Old /services/<slug>.html address: stub that points search engines and visitors at the clean URL
+    # Older addresses that were briefly live: /<slug>-somerset and /services/<slug>[-somerset].html
     (SITE / 'services').mkdir(exist_ok=True)
     (SITE / 'services' / f'{s["slug"]}.html').write_text(redirect_stub('/' + s['slug']))
+    (SITE / 'services' / f'{s["slug"]}-somerset.html').write_text(redirect_stub('/' + s['slug']))
+    (SITE / f'{s["slug"]}-somerset.html').write_text(redirect_stub('/' + s['slug']))
 (SITE / 'about.html').write_text(about_page()); print('wrote about.html')
 (SITE / 'our-work.html').write_text(work_page()); print('wrote our-work.html')
 (SITE / 'contact.html').write_text(contact_page()); print('wrote contact.html')
