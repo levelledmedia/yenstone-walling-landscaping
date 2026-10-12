@@ -202,26 +202,11 @@
           </dl>
         </div>
 
-        <!-- TODO before launch: set data-endpoint to the real form handler (Formspree, Netlify Forms, WordPress, etc.). Until then submissions go nowhere. -->
-        <form class="form" data-anim="settle" id="quote-form" method="post" action="#" data-endpoint="" novalidate>
+<div class="form" data-anim="settle" id="quote-form">
           <h3>Get a free quote</h3>
-          <div class="field">
-            <label for="f-name">Your name</label>
-            <input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="e-name">
-            <p class="field__error" id="e-name" role="alert"></p>
-          </div>
-          <div class="field">
-            <label for="f-phone">Phone number</label>
-            <input id="f-phone" name="phone" type="tel" autocomplete="tel" required aria-describedby="e-phone">
-            <p class="field__error" id="e-phone" role="alert"></p>
-          </div>
-          <div class="field">
-            <label for="f-job">What would you like done?</label>
-            <textarea id="f-job" name="details" rows="4"></textarea>
-          </div>
-          <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-          <button class="btn btn--call btn--lg" type="submit">Get a free quote</button>
-        </form>
+          <iframe src="https://api.leadconnectorhq.com/widget/form/EVOejKk38k3LOrszvX0E" style="width:100%;height:546px;border:none;border-radius:8px" id="inline-EVOejKk38k3LOrszvX0E" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="Yenstone Form" data-height="546" data-layout-iframe-id="inline-EVOejKk38k3LOrszvX0E" data-form-id="EVOejKk38k3LOrszvX0E" data-cookie-consent="true" data-cookie-consent-provider="auto" title="Yenstone Form"></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
         <div class="form-done" id="form-done" tabindex="-1" hidden>
           <h3>Thank you, we have your details</h3>
           <p>We will be in touch shortly. If it is urgent, call us on <a href="tel:01963371123">01963 371123</a>.</p>
